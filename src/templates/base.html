@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Redstack{% endblock %}</title>
+
+    <link href="{{ STATIC_URL }}bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<div class="content_wrap">
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="h_logo col-md-2"></div>
+                <div class="h_user col-md-2 pull-right">
+                    {% if user.is_authenticated %}
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;<a href="/">{{ user.email }}</a>
+                    {% else %}
+                        <button type="button" class="btn btn-primary btn-block">Войти</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+    {% block main %}{% endblock %}
+</div>
+<footer class="footer">
+    <div class="ft_wrap">
+        <div class="container">
+            <div class="row">
+                <div class="ft_logo"></div>
+                <div class="ft_block1"></div>
+                <div class="ft_block2"></div>
+                <div class="ft_social"></div>
+            </div>
+        </div>
+    </div>
+    <div class="fb_wrap">
+        <div class="container">
+            <div class="row">
+                <div class="fb_copy"></div>
+                <div class="fb_author"></div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="{{ STATIC_URL }}js/html5shiv.js"></script>
+<script src="{{ STATIC_URL }}js/respond.min.js"></script>
+<![endif]-->
+<script src="{{ STATIC_URL }}js/angular.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery-1.11.0.min.js"></script>
+<script src="{{ STATIC_URL }}bootstrap-3.1.1/js/bootstrap.min.js"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

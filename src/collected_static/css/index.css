@@ -1,0 +1,50 @@
+@font-face {
+  font-family: Als_rublregular;
+  src: url("../fonts/rouble/rouble-webfont.eot");
+  src: url("../fonts/rouble/rouble-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/rouble/rouble-webfont.woff") format("woff"), url("../fonts/rouble/rouble-webfont.ttf") format("truetype"), url("../fonts/rouble/rouble-webfont.svg#als_rublregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+.rub {
+  font-family: Als_rublregular; }
+
+.title_wrap {
+  padding-top: 40px;
+  padding-bottom: 30px;
+  background: #3b4557;
+  color: #fff; }
+
+.price_wrap {
+  background-image: linear-gradient(#3b4557 30%, transparent 30%); }
+  .price_wrap .row {
+    box-shadow: 0 0 5px #000;
+    background: rgba(255, 255, 255, 0.85); }
+    .price_wrap .row .col-md-4.first {
+      background: url("../img/dot.png") 100% 0 repeat-y; }
+    .price_wrap .row .col-md-4.last {
+      background: url("../img/dot.png") 0 0 repeat-y; }
+    .price_wrap .row .col-md-4 .p_title {
+      font-size: 4em;
+      padding-top: 20px;
+      font-weight: bold;
+      color: #777; }
+      .price_wrap .row .col-md-4 .p_title span {
+        font-size: 0.3em; }
+      .price_wrap .row .col-md-4 .p_title h5 {
+        font-weight: bold;
+        margin-top: 0;
+        color: #000; }
+    .price_wrap .row .col-md-4 .p_content {
+      padding-top: 50px;
+      font-size: 1.1em;
+      color: #555; }
+      .price_wrap .row .col-md-4 .p_content ul {
+        padding-bottom: 30px; }
+        .price_wrap .row .col-md-4 .p_content ul li {
+          padding-bottom: 15px; }
+          .price_wrap .row .col-md-4 .p_content ul li span.glyphicon {
+            color: #5DC560; }
+      .price_wrap .row .col-md-4 .p_content button {
+        margin-bottom: 30px; }
+
+.extra_wrap {
+  height: 100px; }

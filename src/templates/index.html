@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load webdesign %}
+
+{% block title %}Главная{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/index.css">
+{% endblock %}
+
+{% block main %}
+    <div class="title_wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Выберите Ваш план</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h4>{% lorem 10 w random %}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="price_wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 first">
+                    <div class="p_title text-center">
+                        <span class="rub">a </span>999<span>.00</span><br/>
+                        <h5>Визитка</h5>
+                    </div>
+                    <div class="p_content text-center">
+                        <ul class="list-unstyled">
+                            <li>
+                                <span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-export"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                        </ul>
+                        <button type="button" class="btn btn-success">Выбрать</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p_title text-center">
+                        <span class="rub">a </span>1299<span>.00</span><br/>
+                        <h5>Визитка</h5>
+                    </div>
+                    <div class="p_content text-center">
+                        <ul class="list-unstyled">
+                            <li>
+                                <span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-export"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                        </ul>
+                        <button type="button" class="btn btn-success">Выбрать</button>
+                    </div>
+                </div>
+                <div class="col-md-4 last">
+                    <div class="p_title text-center">
+                        <span class="rub">a </span>1999<span>.00</span><br/>
+                        <h5>Визитка</h5>
+                    </div>
+                    <div class="p_content text-center">
+                        <ul class="list-unstyled">
+                            <li>
+                                <span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-export"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;<span>{% lorem 3 w random %}</span>
+                            </li>
+                        </ul>
+                        <button type="button" class="btn btn-success">Выбрать</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="extra_wrap"></div>
+{% endblock %}
