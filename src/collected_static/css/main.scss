@@ -1,0 +1,30 @@
+@import 'fonts';
+@import 'mixins';
+@import 'vars';
+@import 'over';
+
+html, body {
+    height: 100%;
+    background: $body_color;
+}
+
+.content_wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    padding-bottom: $footer_height + 50px;
+    @media (max-width: 767px) {
+        padding-bottom: $footer_height_m + 50px;
+    }
+}
+.footer {
+    padding-top: 20px;
+    background: #333;
+    color: #fff;
+    margin-top: -$footer_height;
+    height: $footer_height;
+    @media (max-width: 767px) {
+        margin-top: -$footer_height_m;
+        height: $footer_height_m;
+    }
+}
