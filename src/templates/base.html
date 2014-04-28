@@ -15,12 +15,14 @@
     <header class="header">
         <div class="container">
             <div class="row">
-                <div class="h_logo col-md-2"></div>
+                <div class="h_logo col-md-2">
+                    <strong><span>RED</span>stack</strong>
+                </div>
                 <div class="h_user col-md-2 pull-right">
                     {% if user.is_authenticated %}
                         <span class="glyphicon glyphicon-user"></span>&nbsp;<a href="/">{{ user.email }}</a>
                     {% else %}
-                        <button type="button" class="btn btn-primary btn-block">Войти</button>
+                        <button type="button" class="btn btn-entry btn-block">Войти</button>
                     {% endif %}
                 </div>
             </div>

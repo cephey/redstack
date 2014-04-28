@@ -1,3 +1,49 @@
 .rub {
   font-family: Als_rublregular;
 }
+
+.btn-entry {
+  color: #ffffff;
+  background-color: #5CB85C;
+  border-color: #fff;
+}
+
+.btn-entry:hover,
+.btn-entry:focus,
+.btn-entry:active,
+.btn-entry.active,
+.open .dropdown-toggle.btn-entry {
+  color: #ffffff;
+  background-color: #47A447;
+  border-color: #fff;
+}
+
+.btn-entry:active,
+.btn-entry.active,
+.open .dropdown-toggle.btn-entry {
+  background-image: none;
+}
+
+.btn-entry.disabled,
+.btn-entry[disabled],
+fieldset[disabled] .btn-entry,
+.btn-entry.disabled:hover,
+.btn-entry[disabled]:hover,
+fieldset[disabled] .btn-entry:hover,
+.btn-entry.disabled:focus,
+.btn-entry[disabled]:focus,
+fieldset[disabled] .btn-entry:focus,
+.btn-entry.disabled:active,
+.btn-entry[disabled]:active,
+fieldset[disabled] .btn-entry:active,
+.btn-entry.disabled.active,
+.btn-entry[disabled].active,
+fieldset[disabled] .btn-entry.active {
+  background-color: #5CB85C;
+  border-color: #fff;
+}
+
+.btn-entry .badge {
+  color: #5CB85C;
+  background-color: #ffffff;
+}

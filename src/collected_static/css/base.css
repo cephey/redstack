@@ -4,6 +4,54 @@
   src: url("../fonts/rouble/rouble-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/rouble/rouble-webfont.woff") format("woff"), url("../fonts/rouble/rouble-webfont.ttf") format("truetype"), url("../fonts/rouble/rouble-webfont.svg#als_rublregular") format("svg");
   font-weight: normal;
   font-style: normal; }
+@font-face {
+  font-family: 'FingerPaintRegular';
+  src: url("../fonts/FingerPaint-Regular/fingerpaint-regular.eot");
+  src: url("../fonts/FingerPaint-Regular/fingerpaint-regular.eot") format("embedded-opentype"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.woff") format("woff"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.ttf") format("truetype"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.svg#FingerPaintRegular") format("svg"); }
+.rub {
+  font-family: Als_rublregular; }
+
+.btn-entry {
+  color: #ffffff;
+  background-color: #5CB85C;
+  border-color: #fff; }
+
+.btn-entry:hover,
+.btn-entry:focus,
+.btn-entry:active,
+.btn-entry.active,
+.open .dropdown-toggle.btn-entry {
+  color: #ffffff;
+  background-color: #47A447;
+  border-color: #fff; }
+
+.btn-entry:active,
+.btn-entry.active,
+.open .dropdown-toggle.btn-entry {
+  background-image: none; }
+
+.btn-entry.disabled,
+.btn-entry[disabled],
+fieldset[disabled] .btn-entry,
+.btn-entry.disabled:hover,
+.btn-entry[disabled]:hover,
+fieldset[disabled] .btn-entry:hover,
+.btn-entry.disabled:focus,
+.btn-entry[disabled]:focus,
+fieldset[disabled] .btn-entry:focus,
+.btn-entry.disabled:active,
+.btn-entry[disabled]:active,
+fieldset[disabled] .btn-entry:active,
+.btn-entry.disabled.active,
+.btn-entry[disabled].active,
+fieldset[disabled] .btn-entry.active {
+  background-color: #5CB85C;
+  border-color: #fff; }
+
+.btn-entry .badge {
+  color: #5CB85C;
+  background-color: #ffffff; }
+
 html, body {
   height: 100%;
   background: white; }
@@ -18,12 +66,13 @@ html, body {
       padding-bottom: 240px; } }
 
 .header {
-  background: #5dc560; }
+  background: #5cb85c; }
   .header .h_logo {
-    height: 100px;
-    background: url("../img/logo.png") 0 50% no-repeat; }
+    padding: 15px 0 10px;
+    font-family: 'FingerPaintRegular';
+    font-size: 3em; }
   .header .h_user {
-    padding-top: 32px; }
+    padding-top: 25px; }
 
 .footer {
   padding-top: 20px;

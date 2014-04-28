@@ -2,6 +2,7 @@
 @import 'mixins';
 @import 'vars';
 @import 'over';
+@import 'class';
 
 html, body {
   height: 100%;
@@ -19,13 +20,14 @@ html, body {
 }
 
 .header {
-  background: #5dc560;
+  background: $green_color;
   .h_logo {
-    height: 100px;
-    background: url('../img/logo.png') 0 50% no-repeat;
+    padding: 15px 0 10px;
+    font-family: 'FingerPaintRegular';
+    font-size: 3em;
   }
   .h_user {
-    padding-top: 32px;
+    padding-top: 25px;
   }
 }
 
