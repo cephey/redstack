@@ -19,26 +19,58 @@ html, body {
   }
 }
 
-.header {
+header {
   background: $green_color;
   .h_logo {
     padding: 15px 0 10px;
     font-family: 'FingerPaintRegular';
     font-size: 3em;
+    a {
+      color: #222;
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
   .h_user {
     padding-top: 25px;
   }
 }
 
-.footer {
+footer {
   padding-top: 20px;
-  background: #333;
-  color: #fff;
+  color: #888;
   margin-top: -$footer_height;
   height: $footer_height;
   @media (max-width: 767px) {
     margin-top: -$footer_height_m;
     height: $footer_height_m;
+  }
+  .ft_wrap {
+    padding-top: 20px;
+    background: #222;
+    height: ($footer_height - 20px) * 0.8;
+    .ft_logo {
+      color: #000;
+      font-size: 2em;
+      font-family: FingerPaintRegular;
+    }
+    .ft_block, .ft_social  {
+      h4 {
+        color: #fff;
+        font-weight: bold;
+      }
+      span {
+        color: $green_color;
+      }
+      ul li a {
+        color: #888;
+      }
+    }
+  }
+  .fb_wrap {
+    padding-top: 15px;
+    background: #111;
+    height: ($footer_height - 15px) * 0.2;
   }
 }
