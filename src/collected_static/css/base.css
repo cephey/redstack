@@ -56,53 +56,47 @@ html, body {
   height: 100%;
   background: white; }
 
-.content_wrap {
-  min-height: 100%;
-  height: auto !important;
+.body_wrap {
+  display: table;
   height: 100%;
-  padding-bottom: 255px; }
-  @media (max-width: 767px) {
-    .content_wrap {
-      padding-bottom: 240px; } }
+  margin: 0 auto;
+  width: 100%; }
 
-header {
-  background: #5cb85c; }
-  header .h_logo {
-    padding: 15px 0 10px;
-    font-family: 'FingerPaintRegular';
-    font-size: 3em; }
-    header .h_logo a {
-      color: #222; }
-      header .h_logo a:hover {
-        text-decoration: none; }
-  header .h_user {
-    padding-top: 25px; }
+.content_wrap {
+  display: table-row; }
+  .content_wrap header {
+    background: #5cb85c; }
+    .content_wrap header .h_logo {
+      padding: 15px 0 10px;
+      font-family: 'FingerPaintRegular';
+      font-size: 3em; }
+      .content_wrap header .h_logo a {
+        color: #222; }
+        .content_wrap header .h_logo a:hover {
+          text-decoration: none; }
+    .content_wrap header .h_user {
+      padding-top: 25px; }
 
 footer {
-  padding-top: 20px;
-  color: #888;
-  margin-top: -255px;
-  height: 255px; }
-  @media (max-width: 767px) {
-    footer {
-      margin-top: -240px;
-      height: 240px; } }
-  footer .ft_wrap {
-    padding-top: 20px;
-    background: #222;
-    height: 188px; }
-    footer .ft_wrap .ft_logo {
-      color: #000;
-      font-size: 2em;
-      font-family: FingerPaintRegular; }
-    footer .ft_wrap .ft_block h4, footer .ft_wrap .ft_social h4 {
-      color: #fff;
-      font-weight: bold; }
-    footer .ft_wrap .ft_block span, footer .ft_wrap .ft_social span {
-      color: #5cb85c; }
-    footer .ft_wrap .ft_block ul li a, footer .ft_wrap .ft_social ul li a {
-      color: #888; }
-  footer .fb_wrap {
-    padding-top: 15px;
-    background: #111;
-    height: 48px; }
+  display: table-footer-group;
+  overflow: hidden; }
+  footer .footer_wrap {
+    display: table-row;
+    height: 1%; }
+    footer .footer_wrap .ft_wrap {
+      padding: 20px 0 10px;
+      background: #222; }
+      footer .footer_wrap .ft_wrap .ft_logo {
+        color: #000;
+        font-size: 2em;
+        font-family: FingerPaintRegular; }
+      footer .footer_wrap .ft_wrap .ft_block h4 {
+        color: #fff;
+        font-weight: bold; }
+      footer .footer_wrap .ft_wrap .ft_block span {
+        color: #5cb85c; }
+      footer .footer_wrap .ft_wrap .ft_block ul li a {
+        color: #888; }
+    footer .footer_wrap .fb_wrap {
+      padding: 15px 0 10px;
+      background: #111; }

@@ -12,73 +12,80 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-<div class="content_wrap">
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="h_logo col-md-2">
-                    <a href="{% url 'pages:index' %}"><strong><span>RED</span>stack</strong></a>
+<div class="body_wrap">
+    <div class="content_wrap">
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="h_logo col-md-2">
+                        <a href="{% url 'pages:index' %}"><strong><span>RED</span>stack</strong></a>
+                    </div>
+                    <div class="h_user col-md-2 pull-right">
+                        {% if user.is_authenticated %}
+                            <span class="glyphicon glyphicon-user"></span>&nbsp;<a href="/">{{ user.email }}</a>
+                        {% else %}
+                            <button type="button" class="btn btn-entry btn-block">Войти</button>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="h_user col-md-2 pull-right">
-                    {% if user.is_authenticated %}
-                        <span class="glyphicon glyphicon-user"></span>&nbsp;<a href="/">{{ user.email }}</a>
-                    {% else %}
-                        <button type="button" class="btn btn-entry btn-block">Войти</button>
-                    {% endif %}
+            </div>
+        </header>
+        {% block main %}{% endblock %}
+    </div>
+    <footer>
+        <div class="footer_wrap">
+            <div class="ft_wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="ft_logo col-md-3">
+                            <strong><span>RED</span>stack</strong>
+                        </div>
+                        <div class="ft_block col-md-3">
+                            <h4>{% lorem 1 w random %}</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="">{% lorem 1 w random %}</a></li>
+                                <li><a href="">{% lorem 1 w random %}</a></li>
+                                <li><a href="">{% lorem 1 w random %}</a></li>
+                                <li><a href="">{% lorem 1 w random %}</a></li>
+                                <li><a href="">{% lorem 1 w random %}</a></li>
+                            </ul>
+                        </div>
+                        <div class="ft_block col-md-3">
+                            <h4>{% lorem 1 w random %}</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="">{% lorem 1 w random %}</a></li>
+                                <li><a href="">{% lorem 1 w random %}</a></li>
+                                <li><a href="">{% lorem 1 w random %}</a></li>
+                                <li><a href="">{% lorem 1 w random %}</a></li>
+                            </ul>
+                        </div>
+                        <div class="ft_block col-md-3">
+                            <h4>{% lorem 1 w random %}</h4>
+                            <ul class="list-unstyled">
+                                <li><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;&nbsp;<a
+                                        href="">{% lorem 2 w random %}</a></li>
+                                <li><span class="glyphicon glyphicon-ok-circle"></span>&nbsp;&nbsp;<a
+                                        href="">{% lorem 2 w random %}</a></li>
+                                <li><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;&nbsp;<a
+                                        href="">{% lorem 2 w random %}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fb_wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="fb_copy col-md-5">
+                            Copyright © Redstack 2014 Все права защищены
+                        </div>
+                        <div class="fb_author"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </header>
-    {% block main %}{% endblock %}
+    </footer>
 </div>
-<footer>
-    <div class="ft_wrap">
-        <div class="container">
-            <div class="row">
-                <div class="ft_logo col-md-3">
-                    <strong><span>RED</span>stack</strong>
-                </div>
-                <div class="ft_block col-md-3">
-                    <h4>{% lorem 1 w random %}</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="">{% lorem 1 w random %}</a></li>
-                        <li><a href="">{% lorem 1 w random %}</a></li>
-                        <li><a href="">{% lorem 1 w random %}</a></li>
-                        <li><a href="">{% lorem 1 w random %}</a></li>
-                        <li><a href="">{% lorem 1 w random %}</a></li>
-                    </ul>
-                </div>
-                <div class="ft_block col-md-3">
-                    <h4>{% lorem 1 w random %}</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="">{% lorem 1 w random %}</a></li>
-                        <li><a href="">{% lorem 1 w random %}</a></li>
-                        <li><a href="">{% lorem 1 w random %}</a></li>
-                        <li><a href="">{% lorem 1 w random %}</a></li>
-                    </ul>
-                </div>
-                <div class="ft_social col-md-3">
-                    <h4>{% lorem 1 w random %}</h4>
-                    <ul class="list-unstyled">
-                        <li><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;&nbsp;<a href="">{% lorem 2 w random %}</a></li>
-                        <li><span class="glyphicon glyphicon-ok-circle"></span>&nbsp;&nbsp;<a href="">{% lorem 2 w random %}</a></li>
-                        <li><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;&nbsp;<a href="">{% lorem 2 w random %}</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="fb_wrap">
-        <div class="container">
-            <div class="row">
-                <div class="fb_copy col-md-5">
-                    Copyright © Redstack 2014 Все права защищены
-                </div>
-                <div class="fb_author"></div>
-            </div>
-        </div>
-    </div>
-</footer>
 
 <!-- support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
