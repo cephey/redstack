@@ -67,6 +67,12 @@
   }
 }
 
+@media screen and (max-width: 992px) {
+  .price_wrap {
+    background-image: none;
+  }
+}
+
 .extra_wrap {
   padding-top: 50px;
   padding-bottom: 30px;
@@ -77,14 +83,9 @@
       color: $green_color;
     }
     @media screen and (max-width: 992px) {
-      div {
+      .el_column {
         text-align: center;
       }
     }
-//    @media screen and (min-width: 768px) {
-//      .e_last {
-//        padding-left: 70px;
-//      }
-//    }
   }
 }

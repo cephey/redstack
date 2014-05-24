@@ -53,6 +53,9 @@
       .price_wrap .row .col-md-4 .p_content button {
         margin-bottom: 30px; }
 
+@media screen and (max-width: 992px) {
+  .price_wrap {
+    background-image: none; } }
 .extra_wrap {
   padding-top: 50px;
   padding-bottom: 30px; }
@@ -62,5 +65,5 @@
     .extra_wrap .e_list span.glyphicon {
       color: #5cb85c; }
     @media screen and (max-width: 992px) {
-      .extra_wrap .e_list div {
+      .extra_wrap .e_list .el_column {
         text-align: center; } }
