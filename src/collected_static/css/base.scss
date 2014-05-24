@@ -24,9 +24,6 @@ html, body {
       padding: 1em 0;
       a {
         @include logo-text(#222, $logo-text-header-size);
-        &:hover {
-          text-decoration: none;
-        }
       }
     }
     .h_user {
@@ -44,6 +41,9 @@ footer {
     .ft_wrap {
       padding: 20px 0 10px;
       background: #222;
+      @include respond-to(small-screen) {
+        text-align: center;
+      }
       .ft_logo {
         @include logo-text(#000, 2em);
       }
@@ -59,19 +59,10 @@ footer {
           color: #888;
         }
       }
-      @media screen and (max-width: 992px) {
-        .row {
-          text-align: center;
-        }
-      }
     }
     .fb_wrap {
       padding: 15px 0 10px;
       background: #111;
     }
   }
-}
-
-span.glyphicon {
-  color: $green_color;
 }

@@ -1,3 +1,5 @@
+@import 'vars';
+
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
   -moz-border-radius: $radius;
@@ -8,4 +10,16 @@
   color: $color;
   font-size: $size;
   font-family: FingerPaintRegular;
+}
+
+@mixin respond-to($media) {
+  @if $media == small-screen {
+    @media only screen and (max-width: $monitor-medium) {
+      @content;
+    }
+  } @else if $media == large-screen {
+    @media only screen and (min-width: $monitor-medium) {
+      @content;
+    }
+  }
 }

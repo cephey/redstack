@@ -16,19 +16,24 @@
 
 .price_wrap {
   background-image: linear-gradient(#083643 30%, transparent 30%); }
+  @media only screen and (max-width: 992px) {
+    .price_wrap {
+      background-image: none; } }
   .price_wrap .row {
     box-shadow: 0 0 5px #555;
     background: rgba(255, 255, 255, 0.85); }
     .price_wrap .row .col-md-4.first {
       background: url("../img/dot.png") 100% 0 repeat-y; }
-    @media screen and (max-width: 992px) {
-      .price_wrap .row .col-md-4.first {
-        background: url("../img/dot.png") 0 100% repeat-x; } }
+      @media only screen and (max-width: 992px) {
+        .price_wrap .row .col-md-4.first {
+          background-position: 0 100%;
+          background-repeat: repeat-x; } }
     .price_wrap .row .col-md-4.last {
       background: url("../img/dot.png") 0 0 repeat-y; }
-    @media screen and (max-width: 992px) {
-      .price_wrap .row .col-md-4.last {
-        background: url("../img/dot.png") 0 0 repeat-x; } }
+      @media only screen and (max-width: 992px) {
+        .price_wrap .row .col-md-4.last {
+          background-position: 0 0;
+          background-repeat: repeat-x; } }
     .price_wrap .row .col-md-4 .p_title {
       font-size: 4em;
       padding-top: 20px;
@@ -51,19 +56,17 @@
       .price_wrap .row .col-md-4 .p_content button {
         margin-bottom: 30px; }
 
-@media screen and (max-width: 992px) {
-  .price_wrap {
-    background-image: none; } }
 .extra_wrap {
   padding-top: 50px;
   padding-bottom: 30px; }
   .extra_wrap .e_list {
     padding-top: 30px;
     color: #555; }
-    .extra_wrap .e_list .e_last {
-      padding-left: 70px; }
-    @media screen and (max-width: 992px) {
+    @media only screen and (max-width: 992px) {
       .extra_wrap .e_list .el_column {
-        text-align: center; }
-      .extra_wrap .e_list .e_last {
-        padding-left: 0; } }
+        text-align: center; } }
+    .extra_wrap .e_list .el_column.e_last {
+      padding-left: 70px; }
+      @media only screen and (max-width: 992px) {
+        .extra_wrap .e_list .el_column.e_last {
+          padding-left: 0; } }

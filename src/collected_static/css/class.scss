@@ -47,3 +47,11 @@ fieldset[disabled] .btn-entry.active {
   color: #5CB85C;
   background-color: #ffffff;
 }
+
+span.glyphicon {
+  color: $green_color;
+}
+
+a.not-hover:hover {
+  text-decoration: none;
+}

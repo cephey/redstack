@@ -52,6 +52,12 @@ fieldset[disabled] .btn-entry.active {
   color: #5CB85C;
   background-color: #ffffff; }
 
+span.glyphicon {
+  color: #5cb85c; }
+
+a.not-hover:hover {
+  text-decoration: none; }
+
 html, body {
   height: 100%;
   background: white; }
@@ -72,8 +78,6 @@ html, body {
         color: #222222;
         font-size: 3em;
         font-family: FingerPaintRegular; }
-        .content_wrap header .h_logo a:hover {
-          text-decoration: none; }
     .content_wrap header .h_user {
       padding-top: 1.95em; }
 
@@ -86,6 +90,9 @@ footer {
     footer .footer_wrap .ft_wrap {
       padding: 20px 0 10px;
       background: #222; }
+      @media only screen and (max-width: 992px) {
+        footer .footer_wrap .ft_wrap {
+          text-align: center; } }
       footer .footer_wrap .ft_wrap .ft_logo {
         color: black;
         font-size: 2em;
@@ -97,12 +104,6 @@ footer {
         color: #5cb85c; }
       footer .footer_wrap .ft_wrap .ft_block ul li a {
         color: #888; }
-      @media screen and (max-width: 992px) {
-        footer .footer_wrap .ft_wrap .row {
-          text-align: center; } }
     footer .footer_wrap .fb_wrap {
       padding: 15px 0 10px;
       background: #111; }
-
-span.glyphicon {
-  color: #5cb85c; }
