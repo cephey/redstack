@@ -55,5 +55,6 @@
     color: #555; }
     .extra_wrap .e_list span.glyphicon {
       color: #5cb85c; }
-    .extra_wrap .e_list .e_last {
-      padding-left: 70px; }
+    @media screen and (min-width: 768px) {
+      .extra_wrap .e_list .e_last {
+        padding-left: 70px; } }
