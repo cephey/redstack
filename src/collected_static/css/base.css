@@ -67,15 +67,15 @@ html, body {
   .content_wrap header {
     background: #5cb85c; }
     .content_wrap header .h_logo {
-      padding: 15px 0 10px;
-      font-family: 'FingerPaintRegular';
-      font-size: 3em; }
+      padding: 1em 0; }
       .content_wrap header .h_logo a {
-        color: #222; }
+        color: #222222;
+        font-size: 3em;
+        font-family: FingerPaintRegular; }
         .content_wrap header .h_logo a:hover {
           text-decoration: none; }
     .content_wrap header .h_user {
-      padding-top: 25px; }
+      padding-top: 1.95em; }
 
 footer {
   display: table-footer-group;
@@ -87,7 +87,7 @@ footer {
       padding: 20px 0 10px;
       background: #222; }
       footer .footer_wrap .ft_wrap .ft_logo {
-        color: #000;
+        color: black;
         font-size: 2em;
         font-family: FingerPaintRegular; }
       footer .footer_wrap .ft_wrap .ft_block h4 {
@@ -97,6 +97,9 @@ footer {
         color: #5cb85c; }
       footer .footer_wrap .ft_wrap .ft_block ul li a {
         color: #888; }
+      @media screen and (max-width: 992px) {
+        footer .footer_wrap .ft_wrap .row {
+          text-align: center; } }
     footer .footer_wrap .fb_wrap {
       padding: 15px 0 10px;
       background: #111; }

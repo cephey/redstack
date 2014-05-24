@@ -21,18 +21,16 @@ html, body {
   header {
     background: $green_color;
     .h_logo {
-      padding: 15px 0 10px;
-      font-family: 'FingerPaintRegular';
-      font-size: 3em;
+      padding: 1em 0;
       a {
-        color: #222;
+        @include logo-text(#222, $logo-text-header-size);
         &:hover {
           text-decoration: none;
         }
       }
     }
     .h_user {
-      padding-top: 25px;
+      padding-top: $logo-text-header-size * 0.65;
     }
   }
 }
@@ -47,9 +45,7 @@ footer {
       padding: 20px 0 10px;
       background: #222;
       .ft_logo {
-        color: #000;
-        font-size: 2em;
-        font-family: FingerPaintRegular;
+        @include logo-text(#000, 2em);
       }
       .ft_block {
         h4 {
@@ -61,6 +57,11 @@ footer {
         }
         ul li a {
           color: #888;
+        }
+      }
+      @media screen and (max-width: 992px) {
+        .row {
+          text-align: center;
         }
       }
     }
