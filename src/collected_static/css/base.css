@@ -103,3 +103,6 @@ footer {
     footer .footer_wrap .fb_wrap {
       padding: 15px 0 10px;
       background: #111; }
+
+span.glyphicon {
+  color: #5cb85c; }

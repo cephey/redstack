@@ -48,8 +48,6 @@
         padding-bottom: 30px; }
         .price_wrap .row .col-md-4 .p_content ul li {
           padding-bottom: 15px; }
-          .price_wrap .row .col-md-4 .p_content ul li span.glyphicon {
-            color: #5cb85c; }
       .price_wrap .row .col-md-4 .p_content button {
         margin-bottom: 30px; }
 
@@ -62,8 +60,6 @@
   .extra_wrap .e_list {
     padding-top: 30px;
     color: #555; }
-    .extra_wrap .e_list span.glyphicon {
-      color: #5cb85c; }
     .extra_wrap .e_list .e_last {
       padding-left: 70px; }
     @media screen and (max-width: 992px) {
