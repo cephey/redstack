@@ -19,8 +19,18 @@
       &.first {
         background: url('../img/dot.png') 100% 0 repeat-y;
       }
+      @media screen and (max-width: 992px) {
+        &.first {
+          background: url('../img/dot.png') 0 100% repeat-x;
+        }
+      }
       &.last {
         background: url('../img/dot.png') 0 0 repeat-y;
+      }
+      @media screen and (max-width: 992px) {
+        &.last {
+          background: url('../img/dot.png') 0 0 repeat-x;
+        }
       }
       .p_title {
         font-size: 4em;
@@ -66,10 +76,15 @@
     span.glyphicon {
       color: $green_color;
     }
-    @media screen and (min-width: 768px) {
-      .e_last {
-        padding-left: 70px;
+    @media screen and (max-width: 992px) {
+      div {
+        text-align: center;
       }
     }
+//    @media screen and (min-width: 768px) {
+//      .e_last {
+//        padding-left: 70px;
+//      }
+//    }
   }
 }

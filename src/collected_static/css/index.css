@@ -21,8 +21,14 @@
     background: rgba(255, 255, 255, 0.85); }
     .price_wrap .row .col-md-4.first {
       background: url("../img/dot.png") 100% 0 repeat-y; }
+    @media screen and (max-width: 992px) {
+      .price_wrap .row .col-md-4.first {
+        background: url("../img/dot.png") 0 100% repeat-x; } }
     .price_wrap .row .col-md-4.last {
       background: url("../img/dot.png") 0 0 repeat-y; }
+    @media screen and (max-width: 992px) {
+      .price_wrap .row .col-md-4.last {
+        background: url("../img/dot.png") 0 0 repeat-x; } }
     .price_wrap .row .col-md-4 .p_title {
       font-size: 4em;
       padding-top: 20px;
@@ -55,6 +61,6 @@
     color: #555; }
     .extra_wrap .e_list span.glyphicon {
       color: #5cb85c; }
-    @media screen and (min-width: 768px) {
-      .extra_wrap .e_list .e_last {
-        padding-left: 70px; } }
+    @media screen and (max-width: 992px) {
+      .extra_wrap .e_list div {
+        text-align: center; } }
