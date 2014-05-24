@@ -64,6 +64,10 @@
     color: #555; }
     .extra_wrap .e_list span.glyphicon {
       color: #5cb85c; }
+    .extra_wrap .e_list .e_last {
+      padding-left: 70px; }
     @media screen and (max-width: 992px) {
       .extra_wrap .e_list .el_column {
-        text-align: center; } }
+        text-align: center; }
+      .extra_wrap .e_list .e_last {
+        padding-left: 0; } }
