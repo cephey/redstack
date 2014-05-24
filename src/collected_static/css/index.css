@@ -22,51 +22,49 @@
   .price_wrap .row {
     box-shadow: 0 0 5px #555;
     background: rgba(255, 255, 255, 0.85); }
-    .price_wrap .row .col-md-4.first {
-      background: url("../img/dot.png") 100% 0 repeat-y; }
-      @media only screen and (max-width: 992px) {
-        .price_wrap .row .col-md-4.first {
-          background-position: 0 100%;
-          background-repeat: repeat-x; } }
-    .price_wrap .row .col-md-4.last {
-      background: url("../img/dot.png") 0 0 repeat-y; }
-      @media only screen and (max-width: 992px) {
-        .price_wrap .row .col-md-4.last {
-          background-position: 0 0;
-          background-repeat: repeat-x; } }
-    .price_wrap .row .col-md-4 .p_title {
+    .price_wrap .row .p_title {
       font-size: 4em;
       padding-top: 20px;
       font-weight: bold;
       color: #777; }
-      .price_wrap .row .col-md-4 .p_title span {
+      .price_wrap .row .p_title span {
         font-size: 0.3em; }
-      .price_wrap .row .col-md-4 .p_title h5 {
-        font-weight: bold;
+      .price_wrap .row .p_title h5 {
         margin-top: 0;
         color: #000; }
-    .price_wrap .row .col-md-4 .p_content {
+    .price_wrap .row .p_content {
       padding-top: 60px;
       font-size: 1.1em;
       color: #555; }
-      .price_wrap .row .col-md-4 .p_content ul {
+      .price_wrap .row .p_content ul {
         padding-bottom: 30px; }
-        .price_wrap .row .col-md-4 .p_content ul li {
+        .price_wrap .row .p_content ul li {
           padding-bottom: 15px; }
-      .price_wrap .row .col-md-4 .p_content button {
+      .price_wrap .row .p_content button {
         margin-bottom: 30px; }
+    .price_wrap .row .first {
+      background: url("../img/dot.png") 100% 0 repeat-y; }
+      @media only screen and (max-width: 992px) {
+        .price_wrap .row .first {
+          background-position: 0 100%;
+          background-repeat: repeat-x; } }
+    .price_wrap .row .last {
+      background: url("../img/dot.png") 0 0 repeat-y; }
+      @media only screen and (max-width: 992px) {
+        .price_wrap .row .last {
+          background-position: 0 0;
+          background-repeat: repeat-x; } }
 
 .extra_wrap {
-  padding-top: 50px;
-  padding-bottom: 30px; }
+  padding: 50px 0 30px; }
   .extra_wrap .e_list {
     padding-top: 30px;
     color: #555; }
     @media only screen and (max-width: 992px) {
       .extra_wrap .e_list .el_column {
         text-align: center; } }
-    .extra_wrap .e_list .el_column.e_last {
+    .extra_wrap .e_list .el_column.el_last {
       padding-left: 70px; }
       @media only screen and (max-width: 992px) {
-        .extra_wrap .e_list .el_column.e_last {
+        .extra_wrap .e_list .el_column.el_last {
           padding-left: 0; } }

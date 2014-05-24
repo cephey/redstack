@@ -18,56 +18,52 @@
   .row {
     box-shadow: 0 0 5px #555;
     background: rgba(255, 255, 255, 0.85);
-    .col-md-4 {
-      &.first {
-        background: url('../img/dot.png') 100% 0 repeat-y;
-        @include respond-to(small-screen) {
-          background-position: 0 100%;
-          background-repeat: repeat-x;
+    .p_title {
+      font-size: 4em;
+      padding-top: 20px;
+      font-weight: bold;
+      color: #777;
+      span {
+        font-size: 0.3em;
+      }
+      h5 {
+        margin-top: 0;
+        color: #000;
+      }
+    }
+    .p_content {
+      padding-top: 60px;
+      font-size: 1.1em;
+      color: #555;
+      ul {
+        padding-bottom: 30px;
+        li {
+          padding-bottom: 15px;
         }
       }
-      &.last {
-        background: url('../img/dot.png') 0 0 repeat-y;
-        @include respond-to(small-screen) {
-          background-position: 0 0;
-          background-repeat: repeat-x;
-        }
+      button {
+        margin-bottom: 30px;
       }
-      .p_title {
-        font-size: 4em;
-        padding-top: 20px;
-        font-weight: bold;
-        color: #777;
-        span {
-          font-size: 0.3em;
-        }
-        h5 {
-          font-weight: bold;
-          margin-top: 0;
-          color: #000;
-        }
+    }
+    .first {
+      background: url('../img/dot.png') 100% 0 repeat-y;
+      @include respond-to(small-screen) {
+        background-position: 0 100%;
+        background-repeat: repeat-x;
       }
-      .p_content {
-        padding-top: 60px;
-        font-size: 1.1em;
-        color: #555;
-        ul {
-          padding-bottom: 30px;
-          li {
-            padding-bottom: 15px;
-          }
-        }
-        button {
-          margin-bottom: 30px;
-        }
+    }
+    .last {
+      background: url('../img/dot.png') 0 0 repeat-y;
+      @include respond-to(small-screen) {
+        background-position: 0 0;
+        background-repeat: repeat-x;
       }
     }
   }
 }
 
 .extra_wrap {
-  padding-top: 50px;
-  padding-bottom: 30px;
+  padding: 50px 0 30px;
   .e_list {
     padding-top: 30px;
     color: #555;
@@ -75,7 +71,7 @@
       @include respond-to(small-screen) {
         text-align: center;
       }
-      &.e_last {
+      &.el_last {
         padding-left: 70px;
         @include respond-to(small-screen) {
           padding-left: 0;
