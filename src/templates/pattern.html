@@ -10,15 +10,17 @@
 {% block main %}
     <div class="page_wrap">
         <div class="container">
-            <div class="row">
+            <div class="row title_wrap">
                 <div class="col-md-12 text-center">
                     <h1>Выбор шаблона</h1>
                 </div>
             </div>
-            <form role="form" ng-controller="FormCtrl">
+            <form name="PatternForm" action="{{ request.path }}" method="POST" ng-controller="FormCtrl" role="form">
+                {% csrf_token %}
                 <div class="row">
                     <div class="form-group col-md-4 col-md-offset-4">
-                        <input type="email" class="form-control" id="email" placeholder="Ваш email">
+                        <input name="email" type="email" class="form-control" ng-model="email" placeholder="Ваш email"
+                               required>
                     </div>
                 </div>
                 <div class="row pattern_wrap" ng-init="img_count={{ images|length }}">
@@ -29,13 +31,14 @@
                                  ng-mouseleave="deactive()" ng-click="set_img({{ forloop.counter0 }})"
                                  class="img-rounded img-responsive">
                             <input type="radio" name="template" ng-checked="check.{{ forloop.counter0 }}"
-                                   value="{{ image.val }}">
+                                   ng-model="template" value="{{ image.val }}" ng-required="mutex===false">
                         </div>
                     {% endfor %}
                 </div>
                 <div class="row button_wrap">
                     <div class="col-md-2 col-md-offset-5">
-                        <button type="submit" class="btn btn-success btn-block">Создать</button>
+                        <input type="submit" class="btn btn-success btn-block" ng-disabled="PatternForm.$invalid"
+                               value="Создать">
                     </div>
                 </div>
             </form>

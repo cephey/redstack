@@ -5,5 +5,5 @@ from .views import IndexView, PatternView
 
 urlpatterns = patterns('',
     url(r'^$', IndexView.as_view(), name='index'),
-    url(r'^pattern/$', PatternView.as_view(), name='pattern'),
+    url(r'^pattern/(?P<type>\w+)/$', PatternView.as_view(), name='pattern'),
 )

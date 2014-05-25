@@ -1,4 +1,4 @@
-function FormCtrl($scope) {
+function FormCtrl($scope, $window) {
 
     //---внутренние переменные и функции-------------------------------
 
