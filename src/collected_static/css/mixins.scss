@@ -6,6 +6,14 @@
   border-radius: $radius;
 }
 
+@mixin transition($property, $second, $method) {
+  -webkit-transition: $property $second $method;
+  -moz-transition: $property $second $method;
+  -ms-transition: $property $second $method;
+  -o-transition: $property $second $method;
+  transition: $property $second $method;
+}
+
 @mixin logo-text($color, $size) {
   color: $color;
   font-size: $size;

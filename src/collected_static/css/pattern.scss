@@ -1,0 +1,25 @@
+@import 'fonts';
+@import 'mixins';
+@import 'vars';
+@import 'over';
+
+.pattern_wrap {
+  .pw_item {
+    padding-bottom: 20px;
+    img {
+      margin: 0 auto;
+      @include transition(opacity, 0.5s, ease);
+      &.blur {
+        opacity: 0.3;
+      }
+    }
+    input {
+      display: none;
+    }
+  }
+  padding: 20px 0 30px;
+}
+
+.button_wrap {
+  padding-bottom: 50px;
+}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load webdesign %}
+
+{% block title %}Выбор шаблона - Redstack{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/pattern.css">
+{% endblock %}
+
+{% block main %}
+    <div class="page_wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Выбор шаблона</h1>
+                </div>
+            </div>
+            <form role="form" ng-controller="FormCtrl">
+                <div class="row">
+                    <div class="form-group col-md-4 col-md-offset-4">
+                        <input type="email" class="form-control" id="email" placeholder="Ваш email">
+                    </div>
+                </div>
+                <div class="row pattern_wrap" ng-init="img_count={{ images|length }}">
+                    {% for image in images %}
+                        <div class="col-xs-12 col-md-4 pw_item">
+                            <img src="{{ STATIC_URL }}img/{{ image.path }}" alt="..."
+                                 ng-class="blurs.{{ forloop.counter0 }}" ng-mouseenter="active({{ forloop.counter0 }})"
+                                 ng-mouseleave="deactive()" ng-click="set_img({{ forloop.counter0 }})"
+                                 class="img-rounded img-responsive">
+                            <input type="radio" name="template" ng-checked="check.{{ forloop.counter0 }}"
+                                   value="{{ image.val }}">
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row button_wrap">
+                    <div class="col-md-2 col-md-offset-5">
+                        <button type="submit" class="btn btn-success btn-block">Создать</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ STATIC_URL }}js/pages/pattern.js"></script>
+{% endblock %}
