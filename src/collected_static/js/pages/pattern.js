@@ -1,4 +1,21 @@
-function FormCtrl($scope, $window) {
+var PatternApp = angular.module('PatternApp', []);
+
+PatternApp.config(['$interpolateProvider', '$httpProvider',
+    function ($interpolateProvider, $httpProvider) {
+
+        /* задаю маркеры шаблонизатора */
+        $interpolateProvider.startSymbol('[%');
+        $interpolateProvider.endSymbol('%]');
+
+        /* заголовки POST запроса для AJAX */
+        var csrf = document.querySelector('input[name=csrfmiddlewaretoken]');
+        if (csrf) {
+            $httpProvider.defaults.headers.post['X-CSRFToken'] = csrf.getAttribute('value');
+            $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+        }
+    }]);
+
+PatternApp.controller('FormCtrl', ['$scope', '$http', function ($scope, $http) {
 
     //---внутренние переменные и функции-------------------------------
 
@@ -20,22 +37,21 @@ function FormCtrl($scope, $window) {
         return result;
     };
 
+    // для генерации имени сайта
+    var colors = ['blue', 'red', 'yellow', 'white', 'green', 'black'],
+        c_len = colors.length,
+        words = ['car', 'house', 'sky', 'sun', 'tree', 'road'],
+        w_len = words.length;
+
     //-----------------------------------------------------------------
+
+    $scope.formData = {};
 
     // переменная для хранения выбранной картинки
     $scope.mutex = false;
 
     // список классов для картинок
     $scope.blurs = clear_list($scope.img_count, '');
-
-    // список значений input[radio] картинок
-    $scope.check = clear_list($scope.img_count, false);
-
-    // выставляю соответствующий input[radio] в checked
-    $scope.checked = function (ind) {
-        $scope.check = clear_list($scope.img_count, false);
-        $scope.check[ind] = true;
-    };
 
     // срабатывает когда мышь наводится на картинку
     $scope.active = function (ind) {
@@ -76,12 +92,34 @@ function FormCtrl($scope, $window) {
     };
 
     // выбор(клик) по картинке
-    $scope.set_img = function (i) {
+    $scope.set_img = function (i, val) {
         // запоминаю её
         $scope.mutex = i;
         // отмечаю как выбранную
-        $scope.checked(i);
+        $scope.formData.site_template = val;
         // заблюриваю предыдущую выбранную
         $scope.active(i);
     };
-}
+
+    // генерация имени сайта
+    $scope.generate_name = function () {
+        var i = Math.floor(Math.random() * c_len),
+            color = colors[i],
+            j = Math.floor(Math.random() * w_len),
+            word = words[j],
+            number = Math.floor(Math.random() * 1001);
+
+        $scope.formData.site_name = color + '-' + word + '-' + number;
+    };
+
+    $scope.submit = function (url) {
+
+        $http.post(url, $.param($scope.formData)).
+            success(function(data, status, headers, config) {
+                console.log(data);
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+    };
+}]);

@@ -11,8 +11,11 @@
 .title_wrap {
   padding-bottom: 20px; }
 
+.input_wrap .field {
+  padding-bottom: 20px; }
+
 .pattern_wrap {
-  padding: 20px 0 30px; }
+  padding-bottom: 30px; }
   .pattern_wrap .pw_item {
     padding-bottom: 20px; }
     .pattern_wrap .pw_item img {

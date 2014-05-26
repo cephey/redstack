@@ -1,4 +1,5 @@
 #coding:utf-8
+
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
@@ -34,9 +35,7 @@ class PatternView(FormView):
 
         if self.request.method in ('POST', 'PUT'):
             post_values = self.request.POST.copy()
-            post_values['site_name'] = post_values.pop('email', '')
             post_values['site_type'] = self.kwargs.get('type', '')
-            post_values['site_template'] = post_values.pop('template', '')
 
             kwargs.update({
                 'data': post_values,
