@@ -114,12 +114,24 @@ PatternApp.controller('FormCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.submit = function (url) {
 
+        if (url === "") {
+            $('#login-modal').modal();
+            return;
+        }
+
+        var l = Ladda.create(document.querySelector('.btn-submit'));
+        l.start();
+
         $http.post(url, $.param($scope.formData)).
             success(function(data, status, headers, config) {
                 console.log(data);
             }).
             error(function(data, status, headers, config) {
                 console.log(data);
+            }).
+            then(function () {
+                // скрываю лоудер
+                l.stop();
             });
     };
 }]);

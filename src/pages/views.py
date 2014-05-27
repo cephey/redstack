@@ -22,6 +22,10 @@ class PatternView(FormView):
             {'path': 'f_2.jpg', 'val': 'f_2'},
             {'path': 'f_3.jpg', 'val': 'f_3'}
         ]
+
+        if self.request.user.is_authenticated():
+            kwargs['submit_url'] = self.request.path
+
         return super(PatternView, self).get_context_data(**kwargs)
 
     def get_form_kwargs(self):

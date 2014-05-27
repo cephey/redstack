@@ -15,7 +15,7 @@
                     <h1>Выбор шаблона</h1>
                 </div>
             </div>
-            <form name="PatternForm" ng-submit="submit('{{ request.path }}')" ng-controller="FormCtrl" role="form">
+            <form name="PatternForm" ng-submit="submit('{{ submit_url }}')" ng-controller="FormCtrl" role="form">
                 {% csrf_token %}
                 <div class="row input_wrap">
                     <div class="form-group">
@@ -39,14 +39,18 @@
                                  ng-click="set_img({{ forloop.counter0 }}, '{{ image.val }}')"
                                  class="img-rounded img-responsive">
                             <input type="radio" name="site_template" ng-checked="formData.site_template"
-                                   ng-model="formData.site_template" value="{{ image.val }}" ng-required="mutex===false">
+                                   ng-model="formData.site_template" value="{{ image.val }}"
+                                   ng-required="mutex===false">
                         </div>
                     {% endfor %}
                 </div>
                 <div class="row button_wrap">
                     <div class="col-md-2 col-md-offset-5">
-                        <input type="submit" class="btn btn-success btn-block" ng-disabled="PatternForm.$invalid"
-                               value="Создать">
+                        <button class="btn btn-success btn-block btn-submit ladda-button"
+                                ng-disabled="PatternForm.$invalid" data-style="zoom-out">
+                            <span class="ladda-label">Создать</span>
+                            <span class="ladda-spinner"></span>
+                        </button>
                     </div>
                 </div>
             </form>
