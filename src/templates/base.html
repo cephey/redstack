@@ -11,8 +11,9 @@
     <link href="{{ STATIC_URL }}ladda/css/ladda-themeless.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css">
     {% block extra_css %}{% endblock %}
+    {% include 'incl/js_constant.html' %}
 </head>
-<body>
+<body ng-app="{% block ng-app %}{% endblock %}">
 <div class="body_wrap">
     <div class="content_wrap">
         <header>
@@ -88,42 +89,15 @@
     </footer>
 </div>
 
-<div class="modal fade bs-example-modal-sm" id="login-modal" tabindex="-1" role="dialog"
-     aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-body">
-                <form class="form center-block">
-                    <div class="form-group">
-                        <input class="form-control" placeholder="Email" type="text">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" placeholder="Пароль" type="password">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-block">Войти</button>
-                    </div>
-                    <div class="form-group">
-                        <span class="pull-right">
-                            <a href="#">Зарегистрироваться</a>
-                        </span>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
+{% include 'incl/login_form.html' %}
 
 <!-- support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
-<script src="{{ STATIC_URL }}js/html5shiv.js"></script>
-<script src="{{ STATIC_URL }}js/respond.min.js"></script>
+<script src="{{ STATIC_URL }}js/vendor/html5shiv.js"></script>
+<script src="{{ STATIC_URL }}js/vendor/respond.min.js"></script>
 <![endif]-->
-<script src="{{ STATIC_URL }}js/angular.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery-1.11.0.min.js"></script>
+<script src="{{ STATIC_URL }}js/vendor/angular.min.js"></script>
+<script src="{{ STATIC_URL }}js/vendor/jquery-1.11.0.min.js"></script>
 <script src="{{ STATIC_URL }}bootstrap-3.1.1/js/bootstrap.min.js"></script>
 <script src="{{ STATIC_URL }}ladda/js/spin.min.js"></script>
 <script src="{{ STATIC_URL }}ladda/js/ladda.min.js"></script>

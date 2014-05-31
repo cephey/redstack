@@ -5,6 +5,8 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from forms import SiteForm
 
+from utils.views import JSONView
+
 
 class IndexView(TemplateView):
     """"""
@@ -52,3 +54,11 @@ class PatternView(FormView):
         Override
         """
         return reverse('pages:index')
+
+
+class CheckAuthUserView(JSONView):
+
+    def get_context_data(self, **kwargs):
+        context = super(CheckAuthUserView, self).get_context_data(**kwargs)
+        context['auth'] = self.request.user.is_authenticated()
+        return context

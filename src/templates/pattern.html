@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/pattern.css">
 {% endblock %}
 
+{% block ng-app %}PatternApp{% endblock %}
+
 {% block main %}
-    <div class="page_wrap" ng-app="PatternApp">
+    <div class="page_wrap">
         <div class="container">
             <div class="row title_wrap">
                 <div class="col-md-12 text-center">
                     <h1>Выбор шаблона</h1>
                 </div>
             </div>
-            <form name="PatternForm" ng-submit="submit('{{ submit_url }}')" ng-controller="FormCtrl" role="form">
+            <form name="PatternForm" ng-submit="submit()" ng-controller="PatternFormCtrl" role="form"
+                  ng-init="submit_url='{{ submit_url }}'">
                 {% csrf_token %}
                 <div class="row input_wrap">
                     <div class="form-group">
@@ -33,14 +36,12 @@
                 <div class="row pattern_wrap" ng-init="img_count={{ images|length }}">
                     {% for image in images %}
                         <div class="col-xs-12 col-md-4 pw_item">
-                            <img src="{{ STATIC_URL }}img/{{ image.path }}" alt="..."
-                                 ng-class="blurs.{{ forloop.counter0 }}" ng-mouseenter="active({{ forloop.counter0 }})"
-                                 ng-mouseleave="deactive()"
-                                 ng-click="set_img({{ forloop.counter0 }}, '{{ image.val }}')"
-                                 class="img-rounded img-responsive">
+                            <img src="{{ STATIC_URL }}img/{{ image.path }}" ng-class="blurs.{{ forloop.counter0 }}"
+                                 ng-mouseenter="active({{ forloop.counter0 }})" ng-mouseleave="deactive()"
+                                 ng-click="set_img('{{ image.val }}')" class="img-rounded img-responsive">
                             <input type="radio" name="site_template" ng-checked="formData.site_template"
                                    ng-model="formData.site_template" value="{{ image.val }}"
-                                   ng-required="mutex===false">
+                                   ng-required="!formData.site_template">
                         </div>
                     {% endfor %}
                 </div>
@@ -59,5 +60,7 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{{ STATIC_URL }}js/pages/pattern.js"></script>
+    <script src="{{ STATIC_URL }}js/user/user.js"></script>
+    <script src="{{ STATIC_URL }}js/pages/pattern/pattern.js"></script>
+    <script src="{{ STATIC_URL }}js/pages/pattern/factory.js"></script>
 {% endblock %}
