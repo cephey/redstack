@@ -23,14 +23,14 @@
                     </div>
                     {% if user.is_authenticated %}
                         <div class="h_user col-xs-3 col-sm-3 col-md-2 pull-right">
-                            <button type="button" ng-click="logout('{% url 'pages:logout' %}')"
+                            <button type="button" ng-click="logout('{% url 'account:logout' %}')"
                                     class="btn btn-entry btn-block">Выйти
                             </button>
                         </div>
                         <div class="h_user col-xs-3 col-sm-3 col-md-2 pull-right">
                             <div class="h_email">
                                 <span class="glyphicon glyphicon-user"></span>&nbsp;
-                                <a href="#">{{ user.email }}</a>
+                                <a href="{% url 'account:profile' %}">{{ user.email }}</a>
                             </div>
                         </div>
                     {% else %}
@@ -113,7 +113,7 @@
 
 <script>
     // константы
-    window.check_user_auth_url = '{% url 'pages:check_user_auth_url' %}';
+    window.check_user_auth_url = '{% url 'account:check_user_auth_url' %}';
 </script>
 
 <script src="{{ STATIC_URL }}js/pages/cookies.js"></script>

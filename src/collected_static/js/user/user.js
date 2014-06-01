@@ -9,6 +9,7 @@ angular.module('UserApp').config(
             $interpolateProvider.endSymbol('%]');
 
             $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+            $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         }
     ]
 );
@@ -32,18 +33,18 @@ angular.module('UserApp').controller(
 
                 $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
 
-                $http.post($scope.submit_url, $.param($scope.formData)).
-                    success(function (data, status, headers, config) {
+                $http.post($scope.submit_url, $.param($scope.formData))
+                    .success(function (data, status, headers, config) {
                         if (data['success'] === true) {
-                            UserHandler.callback();
+                            UserHandler.callback(data['redirect']);
                         } else {
                             console.log(data['message']);
                         }
-                    }).
-                    error(function (data, status, headers, config) {
+                    })
+                    .error(function (data, status, headers, config) {
                         console.log(data);
-                    }).
-                    then(function () {
+                    })
+                    .then(function () {
                         loading.stop();
                     });
             };

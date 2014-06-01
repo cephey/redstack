@@ -4,11 +4,11 @@
         <div class="modal-content">
             <div class="modal-body">
                 <form name="LoginForm" ng-submit="submit()" ng-controller="LoginFormCtrl" role="form"
-                      ng-init="submit_url='{% url 'pages:login' %}'" class="form center-block">
+                      ng-init="submit_url='{% url 'account:login' %}'" class="form center-block">
                     {% csrf_token %}
                     <div class="form-group">
-                        <input name="email" ng-model="formData.email" class="form-control" ng-value="andrey"
-                               placeholder="Email" type="text">
+                        <input name="username" ng-model="formData.username" class="form-control" placeholder="Username"
+                               type="text">
                     </div>
                     <div class="form-group">
                         <input name="password" ng-model="formData.password" class="form-control" placeholder="Пароль"

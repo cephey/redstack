@@ -22,13 +22,15 @@ angular.module('UserApp').factory(
 
         // функция вызываемая после авторизации
         var _callback;
-        var callback = function () {
+        var callback = function (redirect) {
             if (typeof _callback == 'function') {
+                $('#login-modal').modal('hide');
                 _callback();
                 _callback = undefined;
-                $('#login-modal').modal('hide');
-            } else {
+            } else if (!redirect) {
                 location.reload();
+            } else {
+                location.replace(redirect);
             }
         };
 
