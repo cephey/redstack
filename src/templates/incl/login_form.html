@@ -5,6 +5,7 @@
             <div class="modal-body">
                 <form name="LoginForm" ng-submit="submit()" ng-controller="LoginFormCtrl" role="form"
                       ng-init="submit_url='{% url 'pages:login' %}'" class="form center-block">
+                    {% csrf_token %}
                     <div class="form-group">
                         <input name="email" ng-model="formData.email" class="form-control" ng-value="andrey"
                                placeholder="Email" type="text">
