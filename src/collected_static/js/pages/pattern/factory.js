@@ -10,7 +10,7 @@ angular.module('PatternApp').factory(
             w_len = words.length;
 
         // генерация имени сайта
-        function generate_site_name() {
+        var generate_site_name = function () {
             var i = Math.floor(Math.random() * c_len),
                 color = colors[i],
                 j = Math.floor(Math.random() * w_len),
@@ -18,11 +18,11 @@ angular.module('PatternApp').factory(
                 number = Math.floor(Math.random() * 1000);
 
             return color + '-' + word + '-' + number;
-        }
+        };
 
         return {
             generate_site_name: generate_site_name
-        }
+        };
     }
 );
 
@@ -89,6 +89,6 @@ angular.module('PatternApp').factory(
             active: active,
             deactive: deactive,
             set_img: set_img
-        }
+        };
     }
 );

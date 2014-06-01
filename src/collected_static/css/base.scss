@@ -28,6 +28,13 @@ html, body {
     }
     .h_user {
       padding-top: $logo-text-header-size * 0.65;
+      .h_email{
+        text-align: right;
+        padding-top: 0.55em;
+        .glyphicon, a {
+          color: #fff;
+        }
+      }
     }
   }
 }

@@ -1,8 +1,10 @@
-#coding:utf-8
+# coding:utf-8
 
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, login, logout
 from forms import SiteForm
 
 from utils.views import JSONView
@@ -24,9 +26,6 @@ class PatternView(FormView):
             {'path': 'f_2.jpg', 'val': 'f_2'},
             {'path': 'f_3.jpg', 'val': 'f_3'}
         ]
-
-        if self.request.user.is_authenticated():
-            kwargs['submit_url'] = self.request.path
 
         return super(PatternView, self).get_context_data(**kwargs)
 
@@ -57,8 +56,29 @@ class PatternView(FormView):
 
 
 class CheckAuthUserView(JSONView):
-
     def get_context_data(self, **kwargs):
         context = super(CheckAuthUserView, self).get_context_data(**kwargs)
         context['auth'] = self.request.user.is_authenticated()
         return context
+
+
+def login_view(request):
+    email = request.POST['email']
+    password = request.POST['password']
+    user = authenticate(username=email, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'message': 'Disabled account'})
+    else:
+        return JsonResponse({'success': False, 'message': 'Invalid login'})
+
+
+def logout_view(request):
+    from django.shortcuts import redirect
+
+    logout(request)
+
+    return redirect(request.META['HTTP_REFERER'])

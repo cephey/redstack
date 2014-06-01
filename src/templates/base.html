@@ -11,24 +11,33 @@
     <link href="{{ STATIC_URL }}ladda/css/ladda-themeless.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css">
     {% block extra_css %}{% endblock %}
-    {% include 'incl/js_constant.html' %}
 </head>
 <body ng-app="{% block ng-app %}{% endblock %}">
 <div class="body_wrap">
     <div class="content_wrap">
-        <header>
+        <header ng-controller="SignCtrl">
             <div class="container">
                 <div class="row">
                     <div class="h_logo col-xs-5 col-sm-5 col-md-3">
                         <a href="{% url 'pages:index' %}" class="not-hover"><strong><span>RED</span>stack</strong></a>
                     </div>
-                    <div class="h_user col-xs-3 col-sm-3 col-md-2 pull-right">
-                        {% if user.is_authenticated %}
-                            <span class="glyphicon glyphicon-user"></span>&nbsp;<a href="/">{{ user.email }}</a>
-                        {% else %}
-                            <button type="button" class="btn btn-entry btn-block">Войти</button>
-                        {% endif %}
-                    </div>
+                    {% if user.is_authenticated %}
+                        <div class="h_user col-xs-3 col-sm-3 col-md-2 pull-right">
+                            <button type="button" ng-click="logout('{% url 'pages:logout' %}')"
+                                    class="btn btn-entry btn-block">Выйти
+                            </button>
+                        </div>
+                        <div class="h_user col-xs-3 col-sm-3 col-md-2 pull-right">
+                            <div class="h_email">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;
+                                <a href="#">{{ user.email }}</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="h_user col-xs-3 col-sm-3 col-md-2 pull-right">
+                            <button type="button" ng-click="login()" class="btn btn-entry btn-block">Войти</button>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </header>
@@ -101,6 +110,15 @@
 <script src="{{ STATIC_URL }}bootstrap-3.1.1/js/bootstrap.min.js"></script>
 <script src="{{ STATIC_URL }}ladda/js/spin.min.js"></script>
 <script src="{{ STATIC_URL }}ladda/js/ladda.min.js"></script>
+
+<script>
+    // константы
+    window.check_user_auth_url = '{% url 'pages:check_user_auth_url' %}';
+</script>
+
+<script src="{{ STATIC_URL }}js/pages/cookies.js"></script>
+<script src="{{ STATIC_URL }}js/user/user.js"></script>
+<script src="{{ STATIC_URL }}js/user/factory.js"></script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>

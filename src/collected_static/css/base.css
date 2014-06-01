@@ -80,6 +80,11 @@ html, body {
         font-family: FingerPaintRegular; }
     .content_wrap header .h_user {
       padding-top: 1.95em; }
+      .content_wrap header .h_user .h_email {
+        text-align: right;
+        padding-top: 0.55em; }
+        .content_wrap header .h_user .h_email .glyphicon, .content_wrap header .h_user .h_email a {
+          color: #fff; }
 
 footer {
   display: table-footer-group;
