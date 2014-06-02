@@ -1,0 +1,13 @@
+@font-face {
+  font-family: Als_rublregular;
+  src: url("../fonts/rouble/rouble-webfont.eot");
+  src: url("../fonts/rouble/rouble-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/rouble/rouble-webfont.woff") format("woff"), url("../fonts/rouble/rouble-webfont.ttf") format("truetype"), url("../fonts/rouble/rouble-webfont.svg#als_rublregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'FingerPaintRegular';
+  src: url("../fonts/FingerPaint-Regular/fingerpaint-regular.eot");
+  src: url("../fonts/FingerPaint-Regular/fingerpaint-regular.eot") format("embedded-opentype"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.woff") format("woff"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.ttf") format("truetype"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.svg#FingerPaintRegular") format("svg"); }
+.login_wrap {
+  padding-top: 40px;
+  padding-bottom: 30px; }

@@ -38,7 +38,7 @@ angular.module('UserApp').controller(
                         if (data['success'] === true) {
                             UserHandler.callback(data['redirect']);
                         } else {
-                            console.log(data['message']);
+                            console.log(data['errors']);
                         }
                     })
                     .error(function (data, status, headers, config) {
