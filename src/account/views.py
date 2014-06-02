@@ -1,8 +1,9 @@
 # coding:utf-8
 from django.conf import settings
 from django.http import JsonResponse
+from django.core.urlresolvers import reverse
 from django.views.generic.edit import FormView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from django.utils.decorators import method_decorator
 from django.contrib.auth import REDIRECT_FIELD_NAME, authenticate, login, logout
 
@@ -52,7 +53,7 @@ class LoginView(FormView):
             if netloc and netloc != self.request.get_host():
                 redirect_to = settings.LOGIN_REDIRECT_URL
         else:
-            if self.request.META['HTTP_REFERER'] == 'login':
+            if self.request.path == reverse('account:login'):
                 redirect_to = settings.LOGIN_REDIRECT_URL
             else:
                 redirect_to = False
@@ -60,12 +61,14 @@ class LoginView(FormView):
         return redirect_to
 
 
-def logout_view(request):
-    from django.shortcuts import redirect
+class LogoutView(RedirectView):
 
-    logout(request)
+    def get_redirect_url(self, *args, **kwargs):
+        return self.request.META.get('HTTP_REFERER', '/')
 
-    return redirect(request.META['HTTP_REFERER'])
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return super(LogoutView, self).get(request, *args, **kwargs)
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
