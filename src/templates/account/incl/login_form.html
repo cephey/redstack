@@ -2,7 +2,7 @@
       ng-init="submit_url='{% url 'account:login' %}'" class="form center-block">
     {% csrf_token %}
     <div class="form-group">
-        <input name="username" ng-model="formData.username" class="form-control" placeholder="Имя" type="text">
+        <input name="username" ng-model="formData.username" class="form-control" placeholder="Имя или E-mail" type="text">
     </div>
     <div class="form-group">
         <input name="password" ng-model="formData.password" class="form-control" placeholder="Пароль" type="password">
@@ -16,7 +16,7 @@
     </div>
     <div class="form-group">
         <span class="pull-right">
-            <a href="#">Зарегистрироваться</a>
+            <a href="#" ng-click="register()">Зарегистрироваться</a>
         </span>
     </div>
 </form>

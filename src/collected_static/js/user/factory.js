@@ -25,6 +25,7 @@ angular.module('UserApp').factory(
         var callback = function (redirect) {
             if (typeof _callback == 'function') {
                 $('#login-modal').modal('hide');
+                $('#register-modal').modal('hide');
                 _callback();
                 _callback = undefined;
             } else if (!redirect) {
@@ -36,14 +37,24 @@ angular.module('UserApp').factory(
 
         // показ модального окна авторизации
         var show_login_form = function (func) {
-            _callback = func;
+            if (func) {
+                _callback = func;
+            }
+            $('#register-modal').modal('hide');
             $('#login-modal').modal();
+        };
+
+        // показ модального окна регистрации
+        var show_register_form = function () {
+            $('#login-modal').modal('hide');
+            $('#register-modal').modal();
         };
 
         return {
             is_auth: is_auth,
+            callback: callback,
             show_login_form: show_login_form,
-            callback: callback
+            show_register_form: show_register_form
         };
     }]
 );
