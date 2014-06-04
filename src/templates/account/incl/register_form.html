@@ -1,5 +1,5 @@
-<form name="RegisterForm" ng-submit="submit()" ng-controller="RegisterFormCtrl" role="form"
-      ng-init="submit_url='{% url 'account:registration' %}'" class="form center-block">
+<form name="RegisterForm" ng-submit="submit('{% url 'account:registration' %}')" role="form"
+      ng-controller="RegisterFormCtrl" class="form center-block">
     {% csrf_token %}
     <div class="form-group">
         <input name="email" ng-model="formData.email" class="form-control" placeholder="E-mail" type="text">
@@ -13,7 +13,7 @@
     </div>
     <div class="form-group">
         <span class="pull-right">
-            <a href="#" ng-click="login()">Уже есть аккаунт</a>
+            <a href="#" ng-click="openLogin()">Уже есть аккаунт</a>
         </span>
     </div>
 </form>

@@ -92,3 +92,33 @@ angular.module('PatternApp').factory(
         };
     }
 );
+
+angular.module('PatternApp').factory(
+    'PatternHandler', ['$http', 'Cookies',
+        function ($http, Cookies) {
+
+            var send_pattern_form = function (url, formData) {
+
+                var loading = Ladda.create(document.querySelector('.btn-submit-pattern'));
+                loading.start();
+
+                $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
+
+                $http.post(url, $.param(formData))
+                    .success(function (data, status, headers, config) {
+                        console.log(data);
+                    })
+                    .error(function (data, status, headers, config) {
+                        console.log(data);
+                    })
+                    .then(function () {
+                        loading.stop();
+                    });
+            };
+
+            return {
+                send_pattern_form: send_pattern_form
+            };
+        }
+    ]
+);

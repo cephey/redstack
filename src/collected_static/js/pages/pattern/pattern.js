@@ -16,8 +16,8 @@ angular.module('PatternApp').config(
 
 angular.module('PatternApp').controller(
     'PatternFormCtrl',
-    ['$scope', '$http', 'NameGenerator', 'ImageState', 'UserHandler', 'Cookies',
-        function ($scope, $http, NameGenerator, ImageState, UserHandler, Cookies) {
+    ['$scope', '$http', 'NameGenerator', 'ImageState', 'UserHandler', 'PatternHandler',
+        function ($scope, $http, NameGenerator, ImageState, UserHandler, PatternHandler) {
 
             // данные формы
             $scope.formData = {};
@@ -44,34 +44,16 @@ angular.module('PatternApp').controller(
             };
 
             // сабмит формы
-            $scope.submit = function () {
+            $scope.submit = function (url) {
                 UserHandler.is_auth().then(function (is_auth) {
                     if (is_auth === true) {
-                        $scope.send_form();
+                        PatternHandler.send_pattern_form(url, $scope.formData);
                     } else {
-                        UserHandler.show_login_form($scope.send_form);
+                        UserHandler.login(function () {
+                            PatternHandler.send_pattern_form(url, $scope.formData)
+                        });
                     }
                 });
-            };
-
-            // отправка формы
-            $scope.send_form = function () {
-
-                var loading = Ladda.create(document.querySelector('.btn-submit-pattern'));
-                loading.start();
-
-                $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
-
-                $http.post($scope.submit_url, $.param($scope.formData))
-                    .success(function (data, status, headers, config) {
-                        console.log(data);
-                    })
-                    .error(function (data, status, headers, config) {
-                        console.log(data);
-                    })
-                    .then(function () {
-                        loading.stop();
-                    });
             };
         }
     ]
