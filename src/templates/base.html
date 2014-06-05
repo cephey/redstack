@@ -116,9 +116,11 @@
     window.check_user_auth_url = '{% url 'account:check_user_auth_url' %}';
 </script>
 
-<script src="{{ STATIC_URL }}js/pages/cookies.js"></script>
-<script src="{{ STATIC_URL }}js/user/user.js"></script>
-<script src="{{ STATIC_URL }}js/user/factory.js"></script>
+<script src="{{ STATIC_URL }}js/cookies.js"></script>
+
+<script src="{{ STATIC_URL }}js/UserApp.js"></script>
+<script src="{{ STATIC_URL }}js/UserFactory.js"></script>
+<script src="{{ STATIC_URL }}js/UserController.js"></script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>

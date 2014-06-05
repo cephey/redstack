@@ -13,7 +13,7 @@ from utils.decorators import ajax_required
 from backends import RegisterBackend
 from mixins import LoginRequiredMixin
 
-import urlparse
+from urlparse import urlparse
 
 GENERAL_ERROR_KEY = 'all'
 DISABLED_ACCOUNT = {GENERAL_ERROR_KEY: u'Аккаунт заблокирован'}
@@ -55,11 +55,13 @@ class LoginView(FormView):
     def get_success_url(self):
         redirect_to = self.request.REQUEST.get(REDIRECT_FIELD_NAME, False)
         if redirect_to:
-            netloc = urlparse.urlparse(redirect_to)[1]
+            netloc = urlparse(redirect_to).netloc
             if netloc and netloc != self.request.get_host():
                 redirect_to = settings.LOGIN_REDIRECT_URL
-        elif self.request.path == reverse('account:login'):
-            redirect_to = settings.LOGIN_REDIRECT_URL
+        else:
+            path = urlparse(self.request.META.get('HTTP_REFERER', '/')).path
+            if path == reverse('account:login'):
+                redirect_to = settings.LOGIN_REDIRECT_URL
 
         return redirect_to
 

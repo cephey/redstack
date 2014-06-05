@@ -8,12 +8,12 @@ from forms import SiteForm
 
 class IndexView(TemplateView):
 
-    template_name = 'index.html'
+    template_name = 'pages/index.html'
 
 
 class PatternView(FormView):
 
-    template_name = 'pattern.html'
+    template_name = 'pages/pattern.html'
     form_class = SiteForm
 
     def get_context_data(self, **kwargs):
