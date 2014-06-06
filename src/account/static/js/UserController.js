@@ -1,52 +1,49 @@
 angular.module('UserApp').controller(
     'UserPopupCtrl',
-    ['$scope', '$http', 'UserHandler',
-        function ($scope, $http, UserHandler) {
+    ['$scope', 'UserPopup',
+        function ($scope, UserPopup) {
 
-            $scope.loginSelect = UserHandler.loginSelect;
-
+            $scope.popup = UserPopup;
         }
     ]
 );
 
 angular.module('UserApp').controller(
     'LoginFormCtrl',
-    ['$scope', '$http', 'UserHandler',
-        function ($scope, $http, UserHandler) {
+    ['$scope', 'LoginForm',
+        function ($scope, LoginForm) {
 
-            $scope.formData = {};
-
-            $scope.openRegister = UserHandler.openRegister;
-
-            $scope.submit = function (url) {
-                UserHandler.send_login_form(url, $scope.formData);
-            };
+            $scope.form = LoginForm;
         }
     ]
 );
 
 angular.module('UserApp').controller(
     'RegisterFormCtrl',
-    ['$scope', '$http', 'UserHandler',
-        function ($scope, $http, UserHandler) {
+    ['$scope', 'RegisterForm',
+        function ($scope, RegisterForm) {
 
-            $scope.formData = {};
+            $scope.form = RegisterForm;
+        }
+    ]
+);
 
-            $scope.openLogin = UserHandler.openLogin;
+angular.module('UserApp').controller(
+    'ForgotFormCtrl',
+    ['$scope', 'ForgotForm',
+        function ($scope, ForgotForm) {
 
-            $scope.submit = function (url) {
-                UserHandler.send_register_form(url, $scope.formData);
-            };
+            $scope.form = ForgotForm;
         }
     ]
 );
 
 angular.module('UserApp').controller(
     'SignCtrl',
-    ['$scope', '$http', 'UserHandler',
-        function ($scope, $http, UserHandler) {
+    ['$scope', 'UserHandler', 'UserPopup',
+        function ($scope, UserHandler, UserPopup) {
 
-            $scope.login = UserHandler.login;
+            $scope.login = UserPopup.showLogin;
             $scope.logout = UserHandler.logout;
         }
     ]

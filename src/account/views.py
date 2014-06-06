@@ -15,9 +15,9 @@ from mixins import LoginRequiredMixin
 
 from urlparse import urlparse
 
-GENERAL_ERROR_KEY = 'all'
-DISABLED_ACCOUNT = {GENERAL_ERROR_KEY: u'Аккаунт заблокирован'}
-INVALID_LOGIN = {GENERAL_ERROR_KEY: u'Неверный логин или пароль'}
+GENERAL_ERROR_KEY = '__all__'
+DISABLED_ACCOUNT = {GENERAL_ERROR_KEY: [u'Аккаунт заблокирован']}
+INVALID_LOGIN = {GENERAL_ERROR_KEY: [u'Неверный логин или пароль']}
 
 
 class LoginView(FormView):

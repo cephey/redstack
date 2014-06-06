@@ -1,0 +1,27 @@
+{% with form_name='ForgotForm' %}
+
+    <form name="{{ form_name }}" ng-submit="form.submit('{% url 'account:registration' %}')" role="form"
+          ng-controller="{{ form_name }}Ctrl" class="form center-block">
+        {% csrf_token %}
+        <div class="alert alert-danger" ng-show="form.errors.__all__">
+            <span ng-repeat="err in form.errors.__all__">[% err %]<br/></span>
+        </div>
+
+        <span ng-repeat="err in form.errors.email" style="color:#8A6D3B;">[% err %]<br/></span>
+
+        <div class="form-group" ng-class="{'has-warning has-feedback': form.errors.email}">
+            <input name="email" ng-model="formData.email" class="form-control" placeholder="E-mail" type="text">
+            <span ng-show="form.errors.email" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary btn-block [% form.btnSubmitSelector %] ladda-button"
+                    ng-disabled="{{ form_name }}.$invalid"
+                    data-style="zoom-out">
+                <span class="ladda-label">Отправить</span>
+                <span class="ladda-spinner"></span>
+            </button>
+        </div>
+    </form>
+
+{% endwith %}

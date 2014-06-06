@@ -55,3 +55,9 @@ span.glyphicon {
 a.not-hover:hover {
   text-decoration: none;
 }
+
+@media (min-width: 768px) {
+  .modal-md {
+    width: 400px;
+  }
+}

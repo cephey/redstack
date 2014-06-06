@@ -8,6 +8,9 @@
   font-family: 'FingerPaintRegular';
   src: url("../fonts/FingerPaint-Regular/fingerpaint-regular.eot");
   src: url("../fonts/FingerPaint-Regular/fingerpaint-regular.eot") format("embedded-opentype"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.woff") format("woff"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.ttf") format("truetype"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.svg#FingerPaintRegular") format("svg"); }
+.has-feedback .form-control-feedback {
+  top: 0; }
+
 .title_wrap {
   padding-bottom: 20px; }
 

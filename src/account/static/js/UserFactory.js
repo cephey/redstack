@@ -1,38 +1,246 @@
 angular.module('UserApp').factory(
-    'UserHandler', ['$http', '$q', 'Cookies',
-        function ($http, $q, Cookies) {
+    'UserPopup', function () {
 
-            var enter_popup = (function () {
-                var loginOpen = true;
+        return (function () {
+            // состояния попапа (список форм для отображения)
+            var states = {
+                LOGIN: 0,
+                REGISTER: 1,
+                FORGOT: 2
+            };
+            var current_state = states.LOGIN;
+            var elem = $('#user-popup-modal');
 
-                var loginSelect = function () {
-                    return loginOpen;
+            var is_active = function (state) {
+                return state === current_state;
+            };
+
+            // переключение на соответствующую фкладку(форму)
+            var show = function (state) {
+                if (!is_open()) {
+                    elem.modal();
+                }
+                current_state = state;
+            };
+            var hide = function () {
+                elem.modal('hide');
+            };
+
+            var is_open = function () {
+                return elem.is(":visible");
+            };
+            return {
+                states: states,
+                is_active: is_active,
+                showLogin: function () {
+                    show(states.LOGIN);
+                },
+                showRegister: function () {
+                    show(states.REGISTER);
+                },
+                showForgot: function () {
+                    show(states.FORGOT);
+                },
+                hide: hide
+            }
+        })();
+    }
+);
+
+angular.module('UserApp').factory(
+    'LoginForm', ['$http', 'Cookies', 'UserHandler',
+        function ($http, Cookies, handler) {
+
+            return (function () {
+                var fields = {
+                    username: '',
+                    password: ''
                 };
-                var showLogin = function () {
-                    if (!popup_is_open()) {
-                        $('#user-popup-modal').modal();
+                var errors = {
+                    username: false,
+                    password: false,
+                    __all__: false
+                };
+                var clear_errors = function () {
+                    for (var i in errors) {
+                        errors[i] = false;
                     }
-                    loginOpen = true;
                 };
-                var showRegister = function () {
-                    if (!popup_is_open()) {
-                        $('#user-popup-modal').modal();
+                var submit_selector = 'btn-submit-login';
+                var show_errors = function (error_dict) {
+                    if (error_dict) {
+                        for (var field in error_dict) {
+                            errors[field] = error_dict[field];
+                        }
+                    } else {
+                        errors.__all__ = ['Ошибка сервера'];
                     }
-                    loginOpen = false;
                 };
-                var popup_is_open = function () {
-                    return $('#user-popup-modal').is(":visible");
-                };
-                var hide = function () {
-                    $('#user-popup-modal').modal('hide');
+                var submit = function (url) {
+                    clear_errors();
+
+                    var loading = Ladda.create(document.querySelector('.' + submit_selector));
+                    loading.start();
+
+                    $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
+
+                    $http.post(url, $.param(fields))
+                        .success(function (data, status, headers, config) {
+                            if (data['success'] === true) {
+                                handler.callback(data['redirect']);
+                            } else {
+                                show_errors(data['errors']);
+                            }
+                        })
+                        .error(function (data, status, headers, config) {
+                            show_errors();
+                        })
+                        .finally(function () {
+                            loading.stop();
+                        });
                 };
                 return {
-                    loginSelect: loginSelect,
-                    showLogin: showLogin,
-                    showRegister: showRegister,
-                    hide: hide
+                    fields: fields,
+                    errors: errors,
+                    show_errors: show_errors,
+                    clear_errors: clear_errors,
+                    submit: submit,
+                    btnSubmitSelector: submit_selector
                 }
             })();
+        }
+    ]
+);
+
+angular.module('UserApp').factory(
+    'RegisterForm', ['$http', 'Cookies', 'UserHandler',
+        function ($http, Cookies, handler) {
+
+            return (function () {
+                var fields = {
+                    email: ''
+                };
+                var errors = {
+                    email: false,
+                    __all__: false
+                };
+                var clear_errors = function () {
+                    for (var i in errors) {
+                        errors[i] = false;
+                    }
+                };
+                var submit_selector = 'btn-submit-register';
+                var show_errors = function (error_dict) {
+                    if (error_dict) {
+                        for (var field in error_dict) {
+                            errors[field] = error_dict[field];
+                        }
+                    } else {
+                        errors.__all__ = ['Ошибка сервера'];
+                    }
+                };
+                var submit = function (url) {
+                    clear_errors();
+
+                    var loading = Ladda.create(document.querySelector('.' + submit_selector));
+                    loading.start();
+
+                    $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
+
+                    $http.post(url, $.param(fields))
+                        .success(function (data, status, headers, config) {
+                            if (data['success'] === true) {
+                                handler.callback(data['redirect']);
+                            } else {
+                                show_errors(data['errors']);
+                            }
+                        })
+                        .error(function (data, status, headers, config) {
+                            show_errors();
+                        })
+                        .finally(function () {
+                            loading.stop();
+                        });
+                };
+                return {
+                    fields: fields,
+                    errors: errors,
+                    show_errors: show_errors,
+                    clear_errors: clear_errors,
+                    submit: submit,
+                    btnSubmitSelector: submit_selector
+                }
+            })();
+        }
+    ]
+);
+
+angular.module('UserApp').factory(
+    'ForgotForm', ['$http', '$q', 'Cookies',
+        function ($http, $q, Cookies) {
+
+            return (function () {
+                var fields = {
+                    email: ''
+                };
+                var errors = {
+                    email: false,
+                    __all__: false
+                };
+                var clear_errors = function () {
+                    for (var i in errors) {
+                        errors[i] = false;
+                    }
+                };
+                var submit_selector = 'btn-submit-forgot';
+                var show_errors = function (error_dict) {
+                    if (error_dict) {
+                        for (var field in error_dict) {
+                            errors[field] = error_dict[field];
+                        }
+                    } else {
+                        errors.__all__ = ['Ошибка сервера'];
+                    }
+                };
+                var submit = function (url) {
+                    clear_errors();
+
+                    var loading = Ladda.create(document.querySelector('.' + submit_selector));
+                    loading.start();
+
+                    $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
+
+                    $http.post(url, $.param(fields))
+                        .success(function (data, status, headers, config) {
+                            if (data['success'] === true) {
+                                console.log(data);
+                            } else {
+                                show_errors(data['errors']);
+                            }
+                        })
+                        .error(function (data, status, headers, config) {
+                            show_errors();
+                        })
+                        .finally(function () {
+                            loading.stop();
+                        });
+                };
+                return {
+                    fields: fields,
+                    errors: errors,
+                    show_errors: show_errors,
+                    clear_errors: clear_errors,
+                    submit: submit,
+                    btnSubmitSelector: submit_selector
+                }
+            })();
+        }
+    ]
+);
+
+angular.module('UserApp').factory(
+    'UserHandler', ['$http', '$q', 'UserPopup',
+        function ($http, $q, popup) {
 
             // проверка авторизован ли пользователь
             var is_auth = function () {
@@ -57,7 +265,7 @@ angular.module('UserApp').factory(
             var _callback;
             var callback = function (redirect) {
                 if (typeof _callback == 'function') {
-                    enter_popup.hide();
+                    popup.hide();
                     _callback();
                     _callback = undefined;
                 } else if (!redirect) {
@@ -72,69 +280,18 @@ angular.module('UserApp').factory(
                 if (func) {
                     _callback = func;
                 }
-                enter_popup.showLogin();
+                popup.showLogin();
             };
 
             var logout = function (url) {
                 location.replace(url);
             };
 
-            var send_login_form = function (url, formData) {
-
-                var loading = Ladda.create(document.querySelector('.btn-submit-login'));
-                loading.start();
-
-                $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
-
-                $http.post(url, $.param(formData))
-                    .success(function (data, status, headers, config) {
-                        if (data['success'] === true) {
-                            callback(data['redirect']);
-                        } else {
-                            console.log(data['errors']);
-                        }
-                    })
-                    .error(function (data, status, headers, config) {
-                        console.log(data);
-                    })
-                    .then(function () {
-                        loading.stop();
-                    });
-            };
-
-            var send_register_form = function (url, formData) {
-
-                var loading = Ladda.create(document.querySelector('.btn-submit-register'));
-                loading.start();
-
-                $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
-
-                $http.post(url, $.param(formData))
-                    .success(function (data, status, headers, config) {
-                        if (data['success'] === true) {
-                            callback(data['redirect']);
-                        } else {
-                            console.log(data['errors']);
-                        }
-                    })
-                    .error(function (data, status, headers, config) {
-                        console.log(data);
-                    })
-                    .then(function () {
-                        loading.stop();
-                    });
-            };
-
             return {
                 login: login,
                 logout: logout,
                 is_auth: is_auth,
-                callback: callback,
-                send_login_form: send_login_form,
-                send_register_form: send_register_form,
-                openLogin: enter_popup.showLogin,
-                loginSelect: enter_popup.loginSelect,
-                openRegister: enter_popup.showRegister
+                callback: callback
             };
         }
     ]

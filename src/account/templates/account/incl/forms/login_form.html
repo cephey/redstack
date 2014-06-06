@@ -1,0 +1,44 @@
+{% with form_name='LoginForm' %}
+
+    <form name="{{ form_name }}" ng-submit="form.submit('{% url 'account:login' %}')" role="form"
+          ng-controller="{{ form_name }}Ctrl" class="form center-block">
+        {% csrf_token %}
+        <div class="alert alert-danger" ng-show="form.errors.__all__">
+            <span ng-repeat="err in form.errors.__all__">[% err %]<br/></span>
+        </div>
+
+        <span ng-repeat="err in form.errors.username" style="color:#8A6D3B;">[% err %]<br/></span>
+
+        <div class="form-group" ng-class="{'has-warning has-feedback': form.errors.username}">
+            <input name="username" ng-model="form.fields.username" class="form-control" placeholder="Имя или E-mail"
+                   type="text">
+            <span ng-show="form.errors.username" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+        </div>
+
+        <span ng-repeat="err in form.errors.password" style="color:#8A6D3B;">[% err %]<br/></span>
+
+        <div class="form-group" ng-class="{'has-warning has-feedback': form.errors.password}">
+            <input name="password" ng-model="form.fields.password" class="form-control" placeholder="Пароль"
+                   type="password">
+            <span ng-show="form.errors.password" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary btn-block [% form.btnSubmitSelector %] ladda-button"
+                    ng-disabled="{{ form_name }}.$invalid"
+                    data-style="zoom-out">
+                <span class="ladda-label">Войти</span>
+                <span class="ladda-spinner"></span>
+            </button>
+        </div>
+        <div class="form-group">
+            <span>
+                <a href="#" ng-click="popup.showForgot()">Я все забыл</a>
+            </span>
+            <span class="pull-right">
+                <a href="#" ng-click="popup.showRegister()">Зарегистрироваться</a>
+            </span>
+        </div>
+    </form>
+
+{% endwith %}

@@ -8,6 +8,9 @@
   font-family: 'FingerPaintRegular';
   src: url("../fonts/FingerPaint-Regular/fingerpaint-regular.eot");
   src: url("../fonts/FingerPaint-Regular/fingerpaint-regular.eot") format("embedded-opentype"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.woff") format("woff"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.ttf") format("truetype"), url("../fonts/FingerPaint-Regular/fingerpaint-regular.svg#FingerPaintRegular") format("svg"); }
+.has-feedback .form-control-feedback {
+  top: 0; }
+
 .rub {
   font-family: Als_rublregular; }
 
@@ -58,6 +61,9 @@ span.glyphicon {
 a.not-hover:hover {
   text-decoration: none; }
 
+@media (min-width: 768px) {
+  .modal-md {
+    width: 400px; } }
 html, body {
   height: 100%;
   background: white; }
