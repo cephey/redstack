@@ -54,3 +54,6 @@ docs/_build/
 
 # idea
 .idea/*
+
+# npm modules
+src/collected_static/node_modules

@@ -102,25 +102,17 @@
 
 <!-- support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
-<script src="{{ STATIC_URL }}js/vendor/html5shiv.js"></script>
-<script src="{{ STATIC_URL }}js/vendor/respond.min.js"></script>
+<script src="{{ STATIC_URL }}js/ie_fix.js"></script>
 <![endif]-->
-<script src="{{ STATIC_URL }}js/vendor/angular.min.js"></script>
-<script src="{{ STATIC_URL }}js/vendor/jquery-1.11.0.min.js"></script>
-<script src="{{ STATIC_URL }}bootstrap-3.1.1/js/bootstrap.min.js"></script>
-<script src="{{ STATIC_URL }}ladda/js/spin.min.js"></script>
-<script src="{{ STATIC_URL }}ladda/js/ladda.min.js"></script>
+<script src="{{ STATIC_URL }}js/libs.js"></script>
 
 <script>
     // константы
     window.check_user_auth_url = '{% url 'account:check_user_auth_url' %}';
 </script>
+<script src="{{ STATIC_URL }}js/common.min.js"></script>
 
-<script src="{{ STATIC_URL }}js/cookies.js"></script>
-
-<script src="{{ STATIC_URL }}js/UserApp.js"></script>
-<script src="{{ STATIC_URL }}js/UserFactory.js"></script>
-<script src="{{ STATIC_URL }}js/UserController.js"></script>
+<script src="{{ STATIC_URL }}js/account.min.js"></script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>
