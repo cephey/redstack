@@ -5,9 +5,11 @@ from django.core.urlresolvers import reverse
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView, RedirectView
 from django.utils.decorators import method_decorator
-from django.contrib.auth import REDIRECT_FIELD_NAME, authenticate, login, logout
+from django.contrib.auth import REDIRECT_FIELD_NAME, authenticate, login, logout, get_user_model
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_decode
 
-from forms import LoginForm, RegisterForm, PasswordResetForm
+from forms import LoginForm, RegisterForm, PasswordResetForm, SetPasswordForm
 from utils.views import JSONView
 from utils.decorators import ajax_required
 from backends import RegisterBackend
@@ -121,6 +123,52 @@ class PasswordResetView(FormView):
 
     def form_invalid(self, form):
         return JsonResponse({'success': False, 'errors': form.errors})
+
+
+class PasswordResetConfirmView(FormView):
+    form_class = SetPasswordForm
+    template_name = 'account/password_reset/confirm.html'
+
+    def get(self, request, *args, **kwargs):
+        self.check_token()
+        return super(PasswordResetConfirmView, self).get(request, *args, **kwargs)
+
+    @method_decorator(ajax_required)
+    def post(self, request, *args, **kwargs):
+        self.check_token()
+        return super(PasswordResetConfirmView, self).post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return settings.LOGIN_REDIRECT_URL
+
+    def form_valid(self, form):
+        user = form.save()
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        login(self.request, user)
+        return JsonResponse({'success': True, 'redirect': self.get_success_url()})
+
+    def form_invalid(self, form):
+        return JsonResponse({'success': False, 'errors': form.errors})
+
+    def get_form(self, form_class):
+        return form_class(self.user, **self.get_form_kwargs())
+
+    def get_context_data(self, **kwargs):
+        kwargs['validlink'] = self.validlink
+        return super(PasswordResetConfirmView, self).get_context_data(**kwargs)
+
+    def check_token(self, token_generator=default_token_generator):
+        UserModel = get_user_model()
+
+        uidb64 = self.kwargs.get('uidb64', '')
+        token = self.kwargs.get('token', '')
+        try:
+            uid = urlsafe_base64_decode(uidb64)
+            self.user = UserModel._default_manager.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
+            self.user = None
+
+        self.validlink = self.user is not None and token_generator.check_token(self.user, token)
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):

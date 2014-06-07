@@ -21,6 +21,20 @@ class RegisterForm(forms.Form):
 class PasswordResetForm(DjangoPasswordResetForm):
 
     def clean_email(self):
-        if not User.objects.filter(email__iexact=self.cleaned_data['email']).exists():
+        if not User.objects.filter(email__iexact=self.cleaned_data['email'], is_active=True).exists():
             raise forms.ValidationError(u'Пользователя с таким E-mail не найдено')
         return self.cleaned_data['email']
+
+
+class SetPasswordForm(forms.Form):
+    new_password = forms.CharField(widget=forms.PasswordInput)
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(SetPasswordForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        self.user.set_password(self.cleaned_data['new_password'])
+        if commit:
+            self.user.save()
+        return self.user

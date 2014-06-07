@@ -39,6 +39,16 @@ angular.module('UserApp').controller(
 );
 
 angular.module('UserApp').controller(
+    'PasswordResetFormCtrl',
+    ['$scope', 'PasswordResetForm',
+        function ($scope, PasswordResetForm) {
+
+            $scope.form = PasswordResetForm;
+        }
+    ]
+);
+
+angular.module('UserApp').controller(
     'SignCtrl',
     ['$scope', 'UserHandler', 'UserPopup',
         function ($scope, UserHandler, UserPopup) {

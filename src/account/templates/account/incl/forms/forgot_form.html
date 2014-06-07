@@ -1,6 +1,6 @@
 {% with form_name='ForgotForm' %}
 
-    <form name="{{ form_name }}" ng-submit="form.submit('{% url 'account:reset_password' %}')" role="form"
+    <form name="{{ form_name }}" ng-submit="form.submit('{% url 'account:password_reset' %}')" role="form"
           ng-controller="{{ form_name }}Ctrl" class="form center-block">
         {% csrf_token %}
         <div class="alert alert-success" ng-show="form.success_message()" ng-bind-html="form.success_message()"></div>

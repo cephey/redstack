@@ -3,8 +3,6 @@ from django.contrib import admin
 from django.conf import settings
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'conf.views.home', name='home'),
     url(r'', include('pages.urls', namespace='pages')),
     url(r'', include('account.urls', namespace='account')),
 

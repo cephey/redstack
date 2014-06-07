@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Восстановление пароля - Redstack{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/login.css">
+{% endblock %}
+
+{% block ng-app %}UserApp{% endblock %}
+
+{% block main %}
+    <div class="login_wrap" ng-controller="UserPopupCtrl">
+        <div class="container">
+            {% if validlink %}
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        {% include 'account/incl/forms/password_reset_form.html' %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h1>Ссылка уже использована</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <p>К сожалению, ссылка, по которой вы перешли для восстановления пароля, недействительна.
+                            Возможно, вы уже успели ею воспользоваться. Пожалуйста, <a href="#"
+                                                                                       ng-click="popup.showForgot()">запросите
+                                восстановление пароля</a> ещё раз.</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

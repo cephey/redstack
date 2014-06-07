@@ -258,6 +258,69 @@ angular.module('UserApp').factory(
 );
 
 angular.module('UserApp').factory(
+    'PasswordResetForm', ['$http', 'Cookies', 'UserHandler',
+        function ($http, Cookies, handler) {
+
+            return (function () {
+                var fields = {
+                    new_password: ''
+                };
+                var errors = {
+                    new_password: false,
+                    __all__: false
+                };
+                var clear_errors = function () {
+                    for (var i in errors) {
+                        errors[i] = false;
+                    }
+                };
+                var submit_selector = 'btn-submit-password-reset';
+                var show_errors = function (error_dict) {
+                    if (error_dict) {
+                        for (var field in error_dict) {
+                            errors[field] = error_dict[field];
+                        }
+                    } else {
+                        errors.__all__ = ['Ошибка сервера'];
+                    }
+                };
+                var submit = function (url) {
+                    clear_errors();
+
+                    var loading = Ladda.create(document.querySelector('.' + submit_selector));
+                    loading.start();
+
+                    $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
+
+                    $http.post(url, $.param(fields))
+                        .success(function (data, status, headers, config) {
+                            if (data['success'] === true) {
+                                location.replace(data['redirect']);
+                            } else {
+                                show_errors(data['errors']);
+                            }
+                        })
+                        .error(function (data, status, headers, config) {
+                            show_errors();
+                        })
+                        .finally(function () {
+                            loading.stop();
+                        });
+                };
+                return {
+                    fields: fields,
+                    errors: errors,
+                    show_errors: show_errors,
+                    clear_errors: clear_errors,
+                    submit: submit,
+                    btnSubmitSelector: submit_selector
+                }
+            })();
+        }
+    ]
+);
+
+angular.module('UserApp').factory(
     'UserHandler', ['$http', '$q', 'UserPopup',
         function ($http, $q, popup) {
 
