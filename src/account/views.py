@@ -1,5 +1,6 @@
 # coding:utf-8
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import FormView
@@ -43,10 +44,11 @@ class LoginView(FormView):
         return super(LoginView, self).post(request, *args, **kwargs)
 
     def form_valid(self, form):
-        username = form.cleaned_data['username']
+        email = form.cleaned_data['email']
         password = form.cleaned_data['password']
 
-        user = authenticate(username=username, password=password)
+        email_user = User.objects.filter(email__iexact=email).first()
+        user = authenticate(username=email_user.username, password=password)
 
         if user is not None:
             if user.is_active:

@@ -57,11 +57,11 @@ angular.module('UserApp').factory(
 
             return (function () {
                 var fields = {
-                    username: '',
+                    email: '',
                     password: ''
                 };
                 var errors = {
-                    username: false,
+                    email: false,
                     password: false,
                     __all__: false
                 };

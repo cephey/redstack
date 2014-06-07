@@ -9,10 +9,8 @@ class RegisterBackend(object):
     @transaction.atomic
     def register(self, request, **kwargs):
         username = username_from_email(kwargs['email'])
-        password = User.objects.make_random_password()
-
         new_user = User.objects.create_user(username, kwargs['email'])
-        new_user.set_password(password)
+        new_user.set_unusable_password()
         new_user.save()
 
         return new_user
