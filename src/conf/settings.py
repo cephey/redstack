@@ -9,7 +9,7 @@ config = RawConfigParser()
 config.read(os.path.join(BASE_DIR, 'settings.ini'))
 
 ########## Версия сайта #####
-CONF = 'dev'
+CONF = 'prod'
 # Доступные варианты:
 #   prod
 #   dev
@@ -18,10 +18,14 @@ CONF = 'dev'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '3*ht_i78=^ydrz-3hv75ub30i3ip^*v+iu4vjo%bd=cicw)egs'
 
-DEBUG = config.get(CONF, 'DEBUG')
+DEBUG = config.getboolean(CONF, 'DEBUG')
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+INTERNAL_IPS = (
+    '127.0.0.1',
+)
 
 
 # Application definition

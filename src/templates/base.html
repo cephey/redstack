@@ -110,9 +110,8 @@
     // константы
     window.check_user_auth_url = '{% url 'account:check_user_auth_url' %}';
 </script>
-<script src="{{ STATIC_URL }}js/common.min.js"></script>
-
-<script src="{{ STATIC_URL }}js/account.min.js"></script>
+<script src="{{ STATIC_URL }}js/common{% if not debug %}.min{% endif %}.js"></script>
+<script src="{{ STATIC_URL }}js/account{% if not debug %}.min{% endif %}.js"></script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>

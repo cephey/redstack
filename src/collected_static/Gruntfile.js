@@ -21,7 +21,8 @@ module.exports = function (grunt) {
                 src: [
                     'js_src/vendor/*.js',
                     'bootstrap-3.1.1/js/bootstrap.min.js',
-                    'ladda/js/*.min.js'
+                    'ladda/js/spin.min.js',
+                    'ladda/js/ladda.min.js'
                 ],
                 dest: 'js/libs.js'
             },
