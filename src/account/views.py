@@ -5,16 +5,21 @@ from django.core.urlresolvers import reverse
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView, RedirectView
 from django.utils.decorators import method_decorator
-from django.contrib.auth import REDIRECT_FIELD_NAME, authenticate, login, logout, get_user_model
+from django.contrib.auth import (REDIRECT_FIELD_NAME,
+                                 authenticate,
+                                 login,
+                                 logout,
+                                 get_user_model,
+                                 update_session_auth_hash)
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 
-from forms import LoginForm, RegisterForm, PasswordResetForm, SetPasswordForm
+from forms import LoginForm, RegisterForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from utils.views import JSONView
 from utils.decorators import ajax_required
 from backends import RegisterBackend
 from mixins import LoginRequiredMixin
-from tools import RESET_PASSWORD_CONFIRM_TEXT
+from tools import RESET_PASSWORD_CONFIRM_TEXT, CHANGE_PASSWORD_SUCCESS_TEXT
 
 from urlparse import urlparse
 
@@ -82,7 +87,7 @@ class RegistrationView(FormView):
     form_class = RegisterForm
 
     def get(self, request, *args, **kwargs):
-        return HttpResponsePermanentRedirect(reverse('/'))
+        return HttpResponsePermanentRedirect(reverse('pages:index'))
 
     @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):
@@ -106,7 +111,7 @@ class PasswordResetView(FormView):
     form_class = PasswordResetForm
 
     def get(self, request, *args, **kwargs):
-        return HttpResponsePermanentRedirect(reverse('/'))
+        return HttpResponsePermanentRedirect(reverse('pages:index'))
 
     @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):
@@ -169,6 +174,28 @@ class PasswordResetConfirmView(FormView):
             self.user = None
 
         self.validlink = self.user is not None and token_generator.check_token(self.user, token)
+
+
+class PasswordChangeView(FormView):
+    form_class = PasswordChangeForm
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponsePermanentRedirect(reverse('pages:index'))
+
+    @method_decorator(ajax_required)
+    def post(self, request, *args, **kwargs):
+        return super(PasswordChangeView, self).post(request, *args, **kwargs)
+
+    def get_form(self, form_class):
+        return form_class(self.request.user, **self.get_form_kwargs())
+
+    def form_valid(self, form):
+        user = form.save()
+        update_session_auth_hash(self.request, user)
+        return JsonResponse({'success': True, 'message': CHANGE_PASSWORD_SUCCESS_TEXT})
+
+    def form_invalid(self, form):
+        return JsonResponse({'success': False, 'errors': form.errors})
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):

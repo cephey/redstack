@@ -6,6 +6,16 @@
 
 {% block ng-app %}UserApp{% endblock %}
 
-{% block main %}{% endblock %}
+{% block main %}
+    <div class="login_wrap"  ng-controller="UserPopupCtrl">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <a href="#" ng-click="popup.showChange()">Смена пароля</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
 {% block extra_js %}{% endblock %}

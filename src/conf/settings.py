@@ -9,7 +9,7 @@ config = RawConfigParser()
 config.read(os.path.join(BASE_DIR, 'settings.ini'))
 
 ########## Версия сайта #####
-CONF = 'prod'
+CONF = 'dev' if os.environ.get('DEVELOP_MODE') else 'prod'
 # Доступные варианты:
 #   prod
 #   dev

@@ -38,3 +38,13 @@ class SetPasswordForm(forms.Form):
         if commit:
             self.user.save()
         return self.user
+
+
+class PasswordChangeForm(SetPasswordForm):
+    old_password = forms.CharField(widget=forms.PasswordInput)
+
+    def clean_old_password(self):
+        old_password = self.cleaned_data["old_password"]
+        if not self.user.check_password(old_password):
+            raise forms.ValidationError(u'Ваш старый пароль введен не верно')
+        return old_password

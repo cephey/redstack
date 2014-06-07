@@ -34,7 +34,7 @@
         </div>
 
 
-        <!-- forgot popup -->
+        <!-- password forgot popup -->
 
         <div class="modal-content" ng-show="popup.is_active(popup.states.FORGOT)">
             <div class="modal-header">
@@ -43,6 +43,21 @@
             </div>
             <div class="modal-body">
                 {% include 'account/incl/forms/forgot_form.html' %}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Отмена</button>
+            </div>
+        </div>
+
+        <!-- password change popup -->
+
+        <div class="modal-content" ng-show="popup.is_active(popup.states.CHANGE)">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Смена пароля</h4>
+            </div>
+            <div class="modal-body">
+                {% include 'account/incl/forms/change_form.html' %}
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Отмена</button>

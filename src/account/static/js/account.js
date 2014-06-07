@@ -64,6 +64,16 @@ angular.module('UserApp').controller(
 );
 
 angular.module('UserApp').controller(
+    'PasswordChangeFormCtrl',
+    ['$scope', 'PasswordChangeForm',
+        function ($scope, PasswordChangeForm) {
+
+            $scope.form = PasswordChangeForm;
+        }
+    ]
+);
+
+angular.module('UserApp').controller(
     'SignCtrl',
     ['$scope', 'UserHandler', 'UserPopup',
         function ($scope, UserHandler, UserPopup) {
@@ -81,7 +91,8 @@ angular.module('UserApp').factory(
             var states = {
                 LOGIN: 0,
                 REGISTER: 1,
-                FORGOT: 2
+                FORGOT: 2,
+                CHANGE: 3
             };
             var current_state = states.LOGIN;
             var elem = $('#user-popup-modal');
@@ -115,6 +126,9 @@ angular.module('UserApp').factory(
                 },
                 showForgot: function () {
                     show(states.FORGOT);
+                },
+                showChange: function () {
+                    show(states.CHANGE);
                 },
                 hide: hide
             }
@@ -324,8 +338,8 @@ angular.module('UserApp').factory(
                     show_errors: show_errors,
                     clear_errors: clear_errors,
                     submit: submit,
-                    success_message: success_message.get,
-                    btnSubmitSelector: submit_selector
+                    btnSubmitSelector: submit_selector,
+                    success_message: success_message.get
                 }
             })();
         }
@@ -333,8 +347,8 @@ angular.module('UserApp').factory(
 );
 
 angular.module('UserApp').factory(
-    'PasswordResetForm', ['$http', 'Cookies', 'UserHandler',
-        function ($http, Cookies, handler) {
+    'PasswordResetForm', ['$http', 'Cookies',
+        function ($http, Cookies) {
 
             return (function () {
                 var fields = {
@@ -389,6 +403,90 @@ angular.module('UserApp').factory(
                     clear_errors: clear_errors,
                     submit: submit,
                     btnSubmitSelector: submit_selector
+                }
+            })();
+        }
+    ]
+);
+
+angular.module('UserApp').factory(
+    'PasswordChangeForm', ['$http', 'Cookies',
+        function ($http, Cookies) {
+
+            return (function () {
+                var fields = {
+                    old_password: '',
+                    new_password: ''
+                };
+                var errors = {
+                    old_password: false,
+                    new_password: false,
+                    __all__: false
+                };
+                var success_message = (function () {
+                    var message = false;
+                    var get = function () {
+                        return message;
+                    };
+                    var set = function (value) {
+                        message = value || false;
+                    };
+                    return {
+                        get: get,
+                        set: set,
+                        clear: function () {
+                            set()
+                        }
+                    };
+                })();
+
+                var clear_errors = function () {
+                    success_message.clear();
+                    for (var i in errors) {
+                        errors[i] = false;
+                    }
+                };
+                var submit_selector = 'btn-submit-password-change';
+                var show_errors = function (error_dict) {
+                    if (error_dict) {
+                        for (var field in error_dict) {
+                            errors[field] = error_dict[field];
+                        }
+                    } else {
+                        errors.__all__ = ['Ошибка сервера'];
+                    }
+                };
+                var submit = function (url) {
+                    clear_errors();
+
+                    var loading = Ladda.create(document.querySelector('.' + submit_selector));
+                    loading.start();
+
+                    $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
+
+                    $http.post(url, $.param(fields))
+                        .success(function (data, status, headers, config) {
+                            if (data['success'] === true) {
+                                success_message.set(data['message']);
+                            } else {
+                                show_errors(data['errors']);
+                            }
+                        })
+                        .error(function (data, status, headers, config) {
+                            show_errors();
+                        })
+                        .finally(function () {
+                            loading.stop();
+                        });
+                };
+                return {
+                    fields: fields,
+                    errors: errors,
+                    show_errors: show_errors,
+                    clear_errors: clear_errors,
+                    submit: submit,
+                    btnSubmitSelector: submit_selector,
+                    success_message: success_message.get
                 }
             })();
         }

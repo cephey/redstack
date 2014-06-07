@@ -49,6 +49,16 @@ angular.module('UserApp').controller(
 );
 
 angular.module('UserApp').controller(
+    'PasswordChangeFormCtrl',
+    ['$scope', 'PasswordChangeForm',
+        function ($scope, PasswordChangeForm) {
+
+            $scope.form = PasswordChangeForm;
+        }
+    ]
+);
+
+angular.module('UserApp').controller(
     'SignCtrl',
     ['$scope', 'UserHandler', 'UserPopup',
         function ($scope, UserHandler, UserPopup) {
