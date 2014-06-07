@@ -7,11 +7,12 @@ from django.views.generic import TemplateView, RedirectView
 from django.utils.decorators import method_decorator
 from django.contrib.auth import REDIRECT_FIELD_NAME, authenticate, login, logout
 
-from forms import LoginForm, RegisterForm
+from forms import LoginForm, RegisterForm, PasswordResetForm
 from utils.views import JSONView
 from utils.decorators import ajax_required
 from backends import RegisterBackend
 from mixins import LoginRequiredMixin
+from tools import RESET_PASSWORD_CONFIRM_TEXT
 
 from urlparse import urlparse
 
@@ -94,6 +95,29 @@ class RegistrationView(FormView):
         new_user.backend = 'django.contrib.auth.backends.ModelBackend'
         login(self.request, new_user)
         return JsonResponse({'success': True, 'redirect': self.get_success_url()})
+
+    def form_invalid(self, form):
+        return JsonResponse({'success': False, 'errors': form.errors})
+
+
+class PasswordResetView(FormView):
+    form_class = PasswordResetForm
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponsePermanentRedirect(reverse('/'))
+
+    @method_decorator(ajax_required)
+    def post(self, request, *args, **kwargs):
+        return super(PasswordResetView, self).post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        params = {
+            'request': self.request,
+            'subject_template_name': 'account/password_reset/subject.txt',
+            'email_template_name': 'account/password_reset/email.html'
+        }
+        form.save(**params)
+        return JsonResponse({'success': True, 'message': RESET_PASSWORD_CONFIRM_TEXT})
 
     def form_invalid(self, form):
         return JsonResponse({'success': False, 'errors': form.errors})

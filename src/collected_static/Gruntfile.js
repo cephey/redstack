@@ -19,7 +19,9 @@ module.exports = function (grunt) {
             },
             libs: {
                 src: [
-                    'js_src/vendor/*.js',
+                    'js_src/vendor/angular.min.js',
+                    'js_src/vendor/angular-sanitize.min.js',
+                    'js_src/vendor/jquery-1.11.0.min.js',
                     'bootstrap-3.1.1/js/bootstrap.min.js',
                     'ladda/js/spin.min.js',
                     'ladda/js/ladda.min.js'

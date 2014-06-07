@@ -187,7 +187,25 @@ angular.module('UserApp').factory(
                     email: false,
                     __all__: false
                 };
+                var success_message = (function () {
+                    var message = false;
+                    var get = function () {
+                        return message;
+                    };
+                    var set = function (value) {
+                        message = value || false;
+                    };
+                    return {
+                        get: get,
+                        set: set,
+                        clear: function () {
+                            set()
+                        }
+                    };
+                })();
+
                 var clear_errors = function () {
+                    success_message.clear();
                     for (var i in errors) {
                         errors[i] = false;
                     }
@@ -213,7 +231,7 @@ angular.module('UserApp').factory(
                     $http.post(url, $.param(fields))
                         .success(function (data, status, headers, config) {
                             if (data['success'] === true) {
-                                console.log(data);
+                                success_message.set(data['message']);
                             } else {
                                 show_errors(data['errors']);
                             }
@@ -231,6 +249,7 @@ angular.module('UserApp').factory(
                     show_errors: show_errors,
                     clear_errors: clear_errors,
                     submit: submit,
+                    success_message: success_message.get,
                     btnSubmitSelector: submit_selector
                 }
             })();

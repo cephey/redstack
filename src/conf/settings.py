@@ -28,6 +28,16 @@ INTERNAL_IPS = (
 )
 
 
+# email setting
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'redstack.help'
+EMAIL_HOST_PASSWORD = 'Bb3XUT221X'
+DEFAULT_FROM_EMAIL = 'redstack.help@gmail.com'
+
+
 # Application definition
 
 INSTALLED_APPS = (
