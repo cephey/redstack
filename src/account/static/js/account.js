@@ -1,4 +1,4 @@
-angular.module('UserApp', ['Cookies', 'ngSanitize']);
+angular.module('UserApp', ['ngSanitize']);
 
 angular.module('UserApp').config(
     ['$interpolateProvider', '$httpProvider',
@@ -137,358 +137,50 @@ angular.module('UserApp').factory(
 );
 
 angular.module('UserApp').factory(
-    'LoginForm', ['$http', 'Cookies', 'UserHandler',
-        function ($http, Cookies, handler) {
+    'LoginForm', ['$http', 'UserHandler',
+        function ($http, handler) {
 
-            return (function () {
-                var fields = {
-                    email: '',
-                    password: ''
-                };
-                var errors = {
-                    email: false,
-                    password: false,
-                    __all__: false
-                };
-                var clear_errors = function () {
-                    for (var i in errors) {
-                        errors[i] = false;
-                    }
-                };
-                var submit_selector = 'btn-submit-login';
-                var show_errors = function (error_dict) {
-                    if (error_dict) {
-                        for (var field in error_dict) {
-                            errors[field] = error_dict[field];
-                        }
-                    } else {
-                        errors.__all__ = ['Ошибка сервера'];
-                    }
-                };
-                var submit = function (url) {
-                    clear_errors();
-
-                    var loading = Ladda.create(document.querySelector('.' + submit_selector));
-                    loading.start();
-
-                    $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
-
-                    $http.post(url, $.param(fields))
-                        .success(function (data, status, headers, config) {
-                            if (data['success'] === true) {
-                                handler.callback(data['redirect']);
-                            } else {
-                                show_errors(data['errors']);
-                            }
-                        })
-                        .error(function (data, status, headers, config) {
-                            show_errors();
-                        })
-                        .finally(function () {
-                            loading.stop();
-                        });
-                };
-                return {
-                    fields: fields,
-                    errors: errors,
-                    show_errors: show_errors,
-                    clear_errors: clear_errors,
-                    submit: submit,
-                    btnSubmitSelector: submit_selector
-                }
-            })();
+            return new AngForm('login', ['email', 'password'], handler.callback, $http);
         }
     ]
 );
 
 angular.module('UserApp').factory(
-    'RegisterForm', ['$http', 'Cookies', 'UserHandler',
-        function ($http, Cookies, handler) {
+    'RegisterForm', ['$http', 'UserHandler',
+        function ($http, handler) {
 
-            return (function () {
-                var fields = {
-                    email: ''
-                };
-                var errors = {
-                    email: false,
-                    __all__: false
-                };
-                var clear_errors = function () {
-                    for (var i in errors) {
-                        errors[i] = false;
-                    }
-                };
-                var submit_selector = 'btn-submit-register';
-                var show_errors = function (error_dict) {
-                    if (error_dict) {
-                        for (var field in error_dict) {
-                            errors[field] = error_dict[field];
-                        }
-                    } else {
-                        errors.__all__ = ['Ошибка сервера'];
-                    }
-                };
-                var submit = function (url) {
-                    clear_errors();
-
-                    var loading = Ladda.create(document.querySelector('.' + submit_selector));
-                    loading.start();
-
-                    $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
-
-                    $http.post(url, $.param(fields))
-                        .success(function (data, status, headers, config) {
-                            if (data['success'] === true) {
-                                handler.callback(data['redirect']);
-                            } else {
-                                show_errors(data['errors']);
-                            }
-                        })
-                        .error(function (data, status, headers, config) {
-                            show_errors();
-                        })
-                        .finally(function () {
-                            loading.stop();
-                        });
-                };
-                return {
-                    fields: fields,
-                    errors: errors,
-                    show_errors: show_errors,
-                    clear_errors: clear_errors,
-                    submit: submit,
-                    btnSubmitSelector: submit_selector
-                }
-            })();
+            return new AngForm('register', ['email'], handler.callback, $http);
         }
     ]
 );
 
 angular.module('UserApp').factory(
-    'ForgotForm', ['$http', '$q', 'Cookies',
-        function ($http, $q, Cookies) {
+    'ForgotForm', ['$http',
+        function ($http) {
 
-            return (function () {
-                var fields = {
-                    email: ''
-                };
-                var errors = {
-                    email: false,
-                    __all__: false
-                };
-                var success_message = (function () {
-                    var message = false;
-                    var get = function () {
-                        return message;
-                    };
-                    var set = function (value) {
-                        message = value || false;
-                    };
-                    return {
-                        get: get,
-                        set: set,
-                        clear: function () {
-                            set()
-                        }
-                    };
-                })();
-
-                var clear_errors = function () {
-                    success_message.clear();
-                    for (var i in errors) {
-                        errors[i] = false;
-                    }
-                };
-                var submit_selector = 'btn-submit-forgot';
-                var show_errors = function (error_dict) {
-                    if (error_dict) {
-                        for (var field in error_dict) {
-                            errors[field] = error_dict[field];
-                        }
-                    } else {
-                        errors.__all__ = ['Ошибка сервера'];
-                    }
-                };
-                var submit = function (url) {
-                    clear_errors();
-
-                    var loading = Ladda.create(document.querySelector('.' + submit_selector));
-                    loading.start();
-
-                    $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
-
-                    $http.post(url, $.param(fields))
-                        .success(function (data, status, headers, config) {
-                            if (data['success'] === true) {
-                                success_message.set(data['message']);
-                            } else {
-                                show_errors(data['errors']);
-                            }
-                        })
-                        .error(function (data, status, headers, config) {
-                            show_errors();
-                        })
-                        .finally(function () {
-                            loading.stop();
-                        });
-                };
-                return {
-                    fields: fields,
-                    errors: errors,
-                    show_errors: show_errors,
-                    clear_errors: clear_errors,
-                    submit: submit,
-                    btnSubmitSelector: submit_selector,
-                    success_message: success_message.get
-                }
-            })();
+            return new AngForm('forgot', ['email'], undefined, $http);
         }
     ]
 );
 
 angular.module('UserApp').factory(
-    'PasswordResetForm', ['$http', 'Cookies',
-        function ($http, Cookies) {
+    'PasswordResetForm', ['$http',
+        function ($http) {
 
-            return (function () {
-                var fields = {
-                    new_password: ''
-                };
-                var errors = {
-                    new_password: false,
-                    __all__: false
-                };
-                var clear_errors = function () {
-                    for (var i in errors) {
-                        errors[i] = false;
-                    }
-                };
-                var submit_selector = 'btn-submit-password-reset';
-                var show_errors = function (error_dict) {
-                    if (error_dict) {
-                        for (var field in error_dict) {
-                            errors[field] = error_dict[field];
-                        }
-                    } else {
-                        errors.__all__ = ['Ошибка сервера'];
-                    }
-                };
-                var submit = function (url) {
-                    clear_errors();
+            var replace = function (data) {
+                location.replace(data['redirect']);
+            };
 
-                    var loading = Ladda.create(document.querySelector('.' + submit_selector));
-                    loading.start();
-
-                    $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
-
-                    $http.post(url, $.param(fields))
-                        .success(function (data, status, headers, config) {
-                            if (data['success'] === true) {
-                                location.replace(data['redirect']);
-                            } else {
-                                show_errors(data['errors']);
-                            }
-                        })
-                        .error(function (data, status, headers, config) {
-                            show_errors();
-                        })
-                        .finally(function () {
-                            loading.stop();
-                        });
-                };
-                return {
-                    fields: fields,
-                    errors: errors,
-                    show_errors: show_errors,
-                    clear_errors: clear_errors,
-                    submit: submit,
-                    btnSubmitSelector: submit_selector
-                }
-            })();
+            return new AngForm('password-reset', ['new_password'], replace, $http);
         }
     ]
 );
 
 angular.module('UserApp').factory(
-    'PasswordChangeForm', ['$http', 'Cookies',
-        function ($http, Cookies) {
+    'PasswordChangeForm', ['$http',
+        function ($http) {
 
-            return (function () {
-                var fields = {
-                    old_password: '',
-                    new_password: ''
-                };
-                var errors = {
-                    old_password: false,
-                    new_password: false,
-                    __all__: false
-                };
-                var success_message = (function () {
-                    var message = false;
-                    var get = function () {
-                        return message;
-                    };
-                    var set = function (value) {
-                        message = value || false;
-                    };
-                    return {
-                        get: get,
-                        set: set,
-                        clear: function () {
-                            set()
-                        }
-                    };
-                })();
-
-                var clear_errors = function () {
-                    success_message.clear();
-                    for (var i in errors) {
-                        errors[i] = false;
-                    }
-                };
-                var submit_selector = 'btn-submit-password-change';
-                var show_errors = function (error_dict) {
-                    if (error_dict) {
-                        for (var field in error_dict) {
-                            errors[field] = error_dict[field];
-                        }
-                    } else {
-                        errors.__all__ = ['Ошибка сервера'];
-                    }
-                };
-                var submit = function (url) {
-                    clear_errors();
-
-                    var loading = Ladda.create(document.querySelector('.' + submit_selector));
-                    loading.start();
-
-                    $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
-
-                    $http.post(url, $.param(fields))
-                        .success(function (data, status, headers, config) {
-                            if (data['success'] === true) {
-                                success_message.set(data['message']);
-                            } else {
-                                show_errors(data['errors']);
-                            }
-                        })
-                        .error(function (data, status, headers, config) {
-                            show_errors();
-                        })
-                        .finally(function () {
-                            loading.stop();
-                        });
-                };
-                return {
-                    fields: fields,
-                    errors: errors,
-                    show_errors: show_errors,
-                    clear_errors: clear_errors,
-                    submit: submit,
-                    btnSubmitSelector: submit_selector,
-                    success_message: success_message.get
-                }
-            })();
+            return new AngForm('password-change', ['old_password', 'new_password'], undefined, $http);
         }
     ]
 );
@@ -518,7 +210,9 @@ angular.module('UserApp').factory(
 
             // функция вызываемая после авторизации
             var _callback;
-            var callback = function (redirect) {
+            var callback = function (data) {
+                var redirect = data['redirect'];
+
                 if (typeof _callback == 'function') {
                     popup.hide();
                     _callback();

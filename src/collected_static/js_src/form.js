@@ -1,38 +1,3 @@
-var Cookie = (function () {
-    var getCookie = function (name) {
-        var matches = document.cookie.match(
-            new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
-        return matches ? decodeURIComponent(matches[1]) : undefined;
-    };
-    return {
-        getCookie: getCookie
-    };
-})();
-(function (root, factory) {
-    root.Loader = factory();
-})(this, function () {
-    'use strict';
-    return {
-        create: function (name) {
-            return (function () {
-                var selector = 'btn-submit-' + name;
-                var loading;
-                var show = function () {
-                    loading = Ladda.create(document.querySelector('.' + selector));
-                    loading.start();
-                };
-                var hide = function () {
-                    loading.stop();
-                };
-                return {
-                    selector: selector,
-                    show: show,
-                    hide: hide
-                }
-            })();
-        }
-    }
-});
 function AngForm(name, field_list, func, $http) {
 
     this.fields = (function (field_list) {

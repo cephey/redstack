@@ -6,7 +6,11 @@ module.exports = function (grunt) {
         // Склеиваем
         concat: {
             common: {
-                src: 'js_src/*.js',
+                src: [
+                    'js_src/cookies.js',
+                    'js_src/loader.js',
+                    'js_src/form.js'
+                ],
                 dest: 'js/common.js'
             },
             account: {

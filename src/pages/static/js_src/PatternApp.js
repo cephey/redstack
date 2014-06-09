@@ -1,4 +1,4 @@
-angular.module('PatternApp', ['UserApp', 'Cookies']);
+angular.module('PatternApp', ['UserApp']);
 
 angular.module('PatternApp').config(
     ['$interpolateProvider', '$httpProvider',

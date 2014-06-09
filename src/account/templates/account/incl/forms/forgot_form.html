@@ -3,7 +3,7 @@
     <form name="{{ form_name }}" ng-submit="form.submit('{% url 'account:password_reset' %}')" role="form"
           ng-controller="{{ form_name }}Ctrl" class="form center-block">
         {% csrf_token %}
-        <div class="alert alert-success" ng-show="form.success_message()" ng-bind-html="form.success_message()"></div>
+        <div class="alert alert-success" ng-show="form.success.get()" ng-bind-html="form.success.get()"></div>
 
         <div class="alert alert-danger" ng-show="form.errors.__all__">
             <span ng-repeat="err in form.errors.__all__">[% err %]<br/></span>
@@ -17,11 +17,8 @@
         </div>
 
         <div class="form-group">
-            <button class="btn btn-primary btn-block [% form.btnSubmitSelector %] ladda-button"
-                    ng-disabled="{{ form_name }}.$invalid"
-                    data-style="zoom-out">
-                <span class="ladda-label">Отправить</span>
-                <span class="ladda-spinner"></span>
+            <button class="btn btn-primary btn-block [% form.loader.selector %] ladda-button"
+                    ng-disabled="{{ form_name }}.$invalid" data-style="zoom-out">Отправить
             </button>
         </div>
     </form>

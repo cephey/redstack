@@ -1,4 +1,4 @@
-angular.module('PatternApp', ['UserApp', 'Cookies']);
+angular.module('PatternApp', ['UserApp']);
 
 angular.module('PatternApp').config(
     ['$interpolateProvider', '$httpProvider',
@@ -153,15 +153,15 @@ angular.module('PatternApp').factory(
 );
 
 angular.module('PatternApp').factory(
-    'PatternHandler', ['$http', 'Cookies',
-        function ($http, Cookies) {
+    'PatternHandler', ['$http',
+        function ($http) {
 
             var send_pattern_form = function (url, formData) {
 
                 var loading = Ladda.create(document.querySelector('.btn-submit-pattern'));
                 loading.start();
 
-                $http.defaults.headers.post['X-CSRFToken'] = Cookies.getCookie('csrftoken');
+                $http.defaults.headers.post['X-CSRFToken'] = Cookie.getCookie('csrftoken');
 
                 $http.post(url, $.param(formData))
                     .success(function (data, status, headers, config) {

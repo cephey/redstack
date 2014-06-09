@@ -1,4 +1,4 @@
-angular.module('UserApp', ['Cookies', 'ngSanitize']);
+angular.module('UserApp', ['ngSanitize']);
 
 angular.module('UserApp').config(
     ['$interpolateProvider', '$httpProvider',
