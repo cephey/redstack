@@ -25,50 +25,54 @@ angular.module('UserApp').controller(
 
 angular.module('UserApp').controller(
     'LoginFormCtrl',
-    ['$scope', 'LoginForm',
-        function ($scope, LoginForm) {
+    ['$scope', '$http', 'UserHandler',
+        function ($scope, $http, handler) {
 
-            $scope.form = LoginForm;
+            $scope.form = new AngForm(['email', 'password'], handler.callback, $http);
         }
     ]
 );
 
 angular.module('UserApp').controller(
     'RegisterFormCtrl',
-    ['$scope', 'RegisterForm',
-        function ($scope, RegisterForm) {
+    ['$scope', '$http', 'UserHandler',
+        function ($scope, $http, handler) {
 
-            $scope.form = RegisterForm;
+            $scope.form = new AngForm(['email'], handler.callback, $http);
         }
     ]
 );
 
 angular.module('UserApp').controller(
     'ForgotFormCtrl',
-    ['$scope', 'ForgotForm',
-        function ($scope, ForgotForm) {
+    ['$scope', '$http',
+        function ($scope, $http) {
 
-            $scope.form = ForgotForm;
+            $scope.form = new AngForm(['email'], undefined, $http);
         }
     ]
 );
 
 angular.module('UserApp').controller(
     'PasswordResetFormCtrl',
-    ['$scope', 'PasswordResetForm',
-        function ($scope, PasswordResetForm) {
+    ['$scope', '$http',
+        function ($scope, $http) {
 
-            $scope.form = PasswordResetForm;
+            var replace = function (data) {
+                location.replace(data['redirect']);
+            };
+
+            $scope.form = new AngForm(['new_password'], replace, $http);
         }
     ]
 );
 
 angular.module('UserApp').controller(
     'PasswordChangeFormCtrl',
-    ['$scope', 'PasswordChangeForm',
-        function ($scope, PasswordChangeForm) {
+    ['$scope', '$http',
+        function ($scope, $http) {
 
-            $scope.form = PasswordChangeForm;
+            $scope.form = new AngForm(['old_password', 'new_password'], undefined, $http);
         }
     ]
 );
@@ -134,55 +138,6 @@ angular.module('UserApp').factory(
             }
         })();
     }
-);
-
-angular.module('UserApp').factory(
-    'LoginForm', ['$http', 'UserHandler',
-        function ($http, handler) {
-
-            return new AngForm('login', ['email', 'password'], handler.callback, $http);
-        }
-    ]
-);
-
-angular.module('UserApp').factory(
-    'RegisterForm', ['$http', 'UserHandler',
-        function ($http, handler) {
-
-            return new AngForm('register', ['email'], handler.callback, $http);
-        }
-    ]
-);
-
-angular.module('UserApp').factory(
-    'ForgotForm', ['$http',
-        function ($http) {
-
-            return new AngForm('forgot', ['email'], undefined, $http);
-        }
-    ]
-);
-
-angular.module('UserApp').factory(
-    'PasswordResetForm', ['$http',
-        function ($http) {
-
-            var replace = function (data) {
-                location.replace(data['redirect']);
-            };
-
-            return new AngForm('password-reset', ['new_password'], replace, $http);
-        }
-    ]
-);
-
-angular.module('UserApp').factory(
-    'PasswordChangeForm', ['$http',
-        function ($http) {
-
-            return new AngForm('password-change', ['old_password', 'new_password'], undefined, $http);
-        }
-    ]
 );
 
 angular.module('UserApp').factory(

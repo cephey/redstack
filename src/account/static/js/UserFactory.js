@@ -52,55 +52,6 @@ angular.module('UserApp').factory(
 );
 
 angular.module('UserApp').factory(
-    'LoginForm', ['$http', 'UserHandler',
-        function ($http, handler) {
-
-            return new AngForm('login', ['email', 'password'], handler.callback, $http);
-        }
-    ]
-);
-
-angular.module('UserApp').factory(
-    'RegisterForm', ['$http', 'UserHandler',
-        function ($http, handler) {
-
-            return new AngForm('register', ['email'], handler.callback, $http);
-        }
-    ]
-);
-
-angular.module('UserApp').factory(
-    'ForgotForm', ['$http',
-        function ($http) {
-
-            return new AngForm('forgot', ['email'], undefined, $http);
-        }
-    ]
-);
-
-angular.module('UserApp').factory(
-    'PasswordResetForm', ['$http',
-        function ($http) {
-
-            var replace = function (data) {
-                location.replace(data['redirect']);
-            };
-
-            return new AngForm('password-reset', ['new_password'], replace, $http);
-        }
-    ]
-);
-
-angular.module('UserApp').factory(
-    'PasswordChangeForm', ['$http',
-        function ($http) {
-
-            return new AngForm('password-change', ['old_password', 'new_password'], undefined, $http);
-        }
-    ]
-);
-
-angular.module('UserApp').factory(
     'UserHandler', ['$http', '$q', 'UserPopup',
         function ($http, $q, popup) {
 

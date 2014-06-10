@@ -105,6 +105,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'collected_static'),
 )
+# Убрал AppFinder, потому что из приложений статику собирает Grunt
+# и кладет уже в STATICFILES_DIRS
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),

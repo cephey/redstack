@@ -1,4 +1,4 @@
-function AngForm(name, field_list, func, $http) {
+function AngForm(field_list, func, $http) {
 
     this.fields = (function (field_list) {
         var instance = {};
@@ -21,7 +21,7 @@ function AngForm(name, field_list, func, $http) {
         }
     };
 
-    this.loader = Loader.create(name);
+    this.loader = new Loader();
 
     this.errors = (function (field_list, message) {
         var instance = {

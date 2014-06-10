@@ -14,12 +14,12 @@ module.exports = function (grunt) {
                 dest: 'js/common.js'
             },
             account: {
-                src: '../account/static/js_src/*.js',
-                dest: '../account/static/js/account.js'
+                src: '../account/static/js/*.js',
+                dest: 'js/account.js'
             },
             pages: {
-                src: '../pages/static/js_src/*.js',
-                dest: '../pages/static/js/pages.js'
+                src: '../pages/static/js/*.js',
+                dest: 'js/pages.js'
             },
             libs: {
                 src: [
@@ -46,12 +46,12 @@ module.exports = function (grunt) {
             },
             account: {
                 files: {
-                    '../account/static/js/account.min.js': '<%= concat.account.dest %>'
+                    'js/account.min.js': '<%= concat.account.dest %>'
                 }
             },
             pages: {
                 files: {
-                    '../pages/static/js/pages.min.js': '<%= concat.pages.dest %>'
+                    'js/pages.min.js': '<%= concat.pages.dest %>'
                 }
             }
         },
@@ -60,8 +60,8 @@ module.exports = function (grunt) {
             scripts: {
                 files: [
                     'js_src/*.js',
-                    '../account/static/js_src/*.js',
-                    '../pages/static/js_src/*.js'
+                    '../account/static/js/*.js',
+                    '../pages/static/js/*.js'
                 ],
                 tasks: ['concat', 'uglify'],
                 options: {
