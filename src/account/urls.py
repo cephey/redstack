@@ -14,6 +14,4 @@ urlpatterns = patterns(
     url(r'^password_change/$', views.PasswordChangeView.as_view(), name='password_change'),
 
     url(r'^profile/$', views.ProfileView.as_view(), name='profile'),
-
-    url(r'^cuau/$', views.CheckAuthUserView.as_view(), name='check_user_auth_url'),
 )

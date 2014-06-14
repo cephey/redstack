@@ -28,7 +28,32 @@ angular.module('UserApp').controller(
     ['$scope', '$http', 'UserHandler',
         function ($scope, $http, handler) {
 
-            $scope.form = new AngForm(['email', 'password'], handler.callback, $http);
+            $scope.form = new AngForm(['email', 'password']);
+
+            $scope.form.submit = function (url) {
+                var errors = this.errors;
+                var loader = this.loader;
+
+                errors.clear();
+                loader.show();
+
+                $http.defaults.headers.post['X-CSRFToken'] = Cookie.getCookie('csrftoken');
+
+                $http.post(url, $.param(this.fields))
+                    .success(function (data, status, headers, config) {
+                        if (data['success'] === true) {
+                            handler.callback(data)
+                        } else {
+                            errors.show(data);
+                        }
+                    })
+                    .error(function (data, status, headers, config) {
+                        errors.show();
+                    })
+                    .finally(function () {
+                        loader.hide();
+                    });
+            };
         }
     ]
 );
@@ -38,7 +63,32 @@ angular.module('UserApp').controller(
     ['$scope', '$http', 'UserHandler',
         function ($scope, $http, handler) {
 
-            $scope.form = new AngForm(['email'], handler.callback, $http);
+            $scope.form = new AngForm(['email']);
+
+            $scope.form.submit = function (url) {
+                var errors = this.errors;
+                var loader = this.loader;
+
+                errors.clear();
+                loader.show();
+
+                $http.defaults.headers.post['X-CSRFToken'] = Cookie.getCookie('csrftoken');
+
+                $http.post(url, $.param(this.fields))
+                    .success(function (data, status, headers, config) {
+                        if (data['success'] === true) {
+                            handler.callback(data)
+                        } else {
+                            errors.show(data);
+                        }
+                    })
+                    .error(function (data, status, headers, config) {
+                        errors.show();
+                    })
+                    .finally(function () {
+                        loader.hide();
+                    });
+            };
         }
     ]
 );
@@ -48,7 +98,34 @@ angular.module('UserApp').controller(
     ['$scope', '$http',
         function ($scope, $http) {
 
-            $scope.form = new AngForm(['email'], undefined, $http);
+            $scope.form = new AngForm(['email']);
+
+            $scope.form.submit = function (url) {
+                var errors = this.errors;
+                var success = this.success;
+                var loader = this.loader;
+
+                errors.clear();
+                success.clear();
+                loader.show();
+
+                $http.defaults.headers.post['X-CSRFToken'] = Cookie.getCookie('csrftoken');
+
+                $http.post(url, $.param(this.fields))
+                    .success(function (data, status, headers, config) {
+                        if (data['success'] === true) {
+                            success.set(data);
+                        } else {
+                            errors.show(data);
+                        }
+                    })
+                    .error(function (data, status, headers, config) {
+                        errors.show();
+                    })
+                    .finally(function () {
+                        loader.hide();
+                    });
+            };
         }
     ]
 );
@@ -58,11 +135,32 @@ angular.module('UserApp').controller(
     ['$scope', '$http',
         function ($scope, $http) {
 
-            var replace = function (data) {
-                location.replace(data['redirect']);
-            };
+            $scope.form = new AngForm(['new_password']);
 
-            $scope.form = new AngForm(['new_password'], replace, $http);
+            $scope.form.submit = function (url) {
+                var errors = this.errors;
+                var loader = this.loader;
+
+                errors.clear();
+                loader.show();
+
+                $http.defaults.headers.post['X-CSRFToken'] = Cookie.getCookie('csrftoken');
+
+                $http.post(url, $.param(this.fields))
+                    .success(function (data, status, headers, config) {
+                        if (data['success'] === true) {
+                            location.replace(data['redirect']);
+                        } else {
+                            errors.show(data);
+                        }
+                    })
+                    .error(function (data, status, headers, config) {
+                        errors.show();
+                    })
+                    .finally(function () {
+                        loader.hide();
+                    });
+            };
         }
     ]
 );
@@ -72,7 +170,34 @@ angular.module('UserApp').controller(
     ['$scope', '$http',
         function ($scope, $http) {
 
-            $scope.form = new AngForm(['old_password', 'new_password'], undefined, $http);
+            $scope.form = new AngForm(['old_password', 'new_password']);
+
+            $scope.form.submit = function (url) {
+                var errors = this.errors;
+                var success = this.success;
+                var loader = this.loader;
+
+                errors.clear();
+                success.clear();
+                loader.show();
+
+                $http.defaults.headers.post['X-CSRFToken'] = Cookie.getCookie('csrftoken');
+
+                $http.post(url, $.param(this.fields))
+                    .success(function (data, status, headers, config) {
+                        if (data['success'] === true) {
+                            success.set(data);
+                        } else {
+                            errors.show(data);
+                        }
+                    })
+                    .error(function (data, status, headers, config) {
+                        errors.show();
+                    })
+                    .finally(function () {
+                        loader.hide();
+                    });
+            };
         }
     ]
 );

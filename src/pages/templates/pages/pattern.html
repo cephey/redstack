@@ -4,7 +4,7 @@
 {% block title %}Выбор шаблона - Redstack{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/pattern.css">
+    <link href="{{ STATIC_URL }}css/pattern{% if not debug %}.min{% endif %}.css" rel="stylesheet">
 {% endblock %}
 
 {% block ng-app %}PatternApp{% endblock %}
@@ -17,43 +17,56 @@
                     <h1>Выбор шаблона</h1>
                 </div>
             </div>
-            <form name="PatternForm" ng-submit="submit('{{ request.path }}')" ng-controller="PatternFormCtrl"
-                  role="form">
-                <div class="row input_wrap">
-                    <div class="form-group">
-                        <div class="col-md-4 col-md-offset-3 field">
-                            <input name="site_name" type="text" class="form-control site_name"
-                                   ng-model="formData.site_name" placeholder="Название сайта" required>
+            {% with form_name='PatternForm' %}
+                <form name="{{ form_name }}" ng-submit="form.submit('{{ request.path }}')"
+                      ng-controller="{{ form_name }}Ctrl" role="form" ng-cloak>
+                    {% csrf_token %}
+                    <div class="alert alert-danger" ng-show="form.errors.__all__">
+                        <span ng-repeat="err in form.errors.__all__">[% err %]<br/></span>
+                    </div>
+
+                    <div class="row input_wrap">
+                        <span ng-repeat="err in form.errors.name" style="color:#8A6D3B;">[% err %]<br/></span>
+
+                        <div class="form-group">
+                            <div class="col-md-4 col-md-offset-3 field">
+                                <input name="name" ng-model="form.fields.name" class="form-control"
+                                       placeholder="Название сайта" type="text" required>
+                                <span ng-show="form.errors.name"
+                                      class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                            </div>
+                            <div class="col-md-2 field">
+                                <button class="btn btn-success btn-block" type="button" ng-click="generate_name()">
+                                    Случайное
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-md-2 field">
-                            <button class="btn btn-success btn-block" type="button" ng-click="generate_name()">
-                                Случайное
+                    </div>
+
+                    <div class="row pattern_wrap" ng-init="blurs=build({{ patterns|length }})">
+                        <span ng-repeat="err in form.errors.pattern" style="color:#8A6D3B;">[% err %]<br/></span>
+
+                        {% for pattern in patterns %}
+                            <div class="col-xs-12 col-md-4 pw_item">
+                                <img src="{{ pattern.img.url }}" ng-class="blurs.{{ forloop.counter0 }}"
+                                     ng-mouseenter="active({{ forloop.counter0 }})" ng-mouseleave="deactive()"
+                                     ng-click="set_img('{{ pattern.id }}')" class="img-rounded img-responsive">
+                                <input name="pattern" ng-model="form.fields.pattern" type="radio"
+                                       value="{{ pattern.id }}" ng-checked="form.fields.pattern"
+                                       ng-required="!form.fields.pattern">
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="row button_wrap">
+                        <div class="col-md-2 col-md-offset-5">
+                            <button class="btn btn-success btn-block [% form.loader.selector %] ladda-button"
+                                    ng-disabled="{{ form_name }}.$invalid" data-style="zoom-out">Создать
                             </button>
                         </div>
                     </div>
-                </div>
-                <div class="row pattern_wrap" ng-init="img_count={{ images|length }}">
-                    {% for image in images %}
-                        <div class="col-xs-12 col-md-4 pw_item">
-                            <img src="{{ STATIC_URL }}img/{{ image.path }}" ng-class="blurs.{{ forloop.counter0 }}"
-                                 ng-mouseenter="active({{ forloop.counter0 }})" ng-mouseleave="deactive()"
-                                 ng-click="set_img('{{ image.val }}')" class="img-rounded img-responsive">
-                            <input type="radio" name="site_template" ng-checked="formData.site_template"
-                                   ng-model="formData.site_template" value="{{ image.val }}"
-                                   ng-required="!formData.site_template">
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="row button_wrap">
-                    <div class="col-md-2 col-md-offset-5">
-                        <button class="btn btn-success btn-block btn-submit-pattern ladda-button"
-                                ng-disabled="PatternForm.$invalid" data-style="zoom-out">
-                            <span class="ladda-label">Создать</span>
-                            <span class="ladda-spinner"></span>
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            {% endwith %}
         </div>
     </div>
 {% endblock %}

@@ -7,11 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Redstack{% endblock %}</title>
-
-    <link href="{{ STATIC_URL }}bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}ladda/css/ladda-themeless.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css">
-    {% block extra_css %}{% endblock %}
 </head>
 <body ng-app="{% block ng-app %}{% endblock %}">
 <div class="body_wrap">
@@ -101,16 +96,15 @@
 
 {% include 'account/incl/enter_popup.html' %}
 
+<link href="{{ STATIC_URL }}css/libs.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}css/base{% if not debug %}.min{% endif %}.css" rel="stylesheet">
+{% block extra_css %}{% endblock %}
+
 <!-- support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 <script src="{{ STATIC_URL }}js/ie_fix.js"></script>
 <![endif]-->
 <script src="{{ STATIC_URL }}js/libs.js"></script>
-
-<script>
-    // константы
-    window.check_user_auth_url = '{% url 'account:check_user_auth_url' %}';
-</script>
 <script src="{{ STATIC_URL }}js/common{% if not debug %}.min{% endif %}.js"></script>
 <script src="{{ STATIC_URL }}js/account{% if not debug %}.min{% endif %}.js"></script>
 {% block extra_js %}{% endblock %}

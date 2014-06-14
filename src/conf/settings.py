@@ -52,6 +52,7 @@ INSTALLED_APPS = (
 
     'pages',
     'account',
+    'devserver',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -127,3 +128,18 @@ LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 
 LOGIN_REDIRECT_URL = '/profile/'
+
+
+# DEV SERVER
+
+DEVSERVER_MODULES = (
+    # 'devserver.modules.sql.SQLRealTimeModule',
+    'devserver.modules.sql.SQLSummaryModule',
+    # 'devserver.modules.profile.ProfileSummaryModule',
+
+    # 'devserver.modules.ajax.AjaxDumpModule',
+    # 'devserver.modules.profile.MemoryUseModule',
+    # 'devserver.modules.cache.CacheSummaryModule',
+    # 'devserver.modules.profile.LineProfilerModule',
+)
+DEVSERVER_TRUNCATE_SQL = False

@@ -202,10 +202,3 @@ class PasswordChangeView(FormView):
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'account/profile.html'
-
-
-class CheckAuthUserView(JSONView):
-    def get_context_data(self, **kwargs):
-        context = super(CheckAuthUserView, self).get_context_data(**kwargs)
-        context['auth'] = self.request.user.is_authenticated()
-        return context

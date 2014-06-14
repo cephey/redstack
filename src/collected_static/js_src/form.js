@@ -1,4 +1,4 @@
-function AngForm(field_list, func, $http) {
+function AngForm(field_list) {
 
     this.fields = (function (field_list) {
         var instance = {};
@@ -13,8 +13,8 @@ function AngForm(field_list, func, $http) {
         get: function () {
             return this.message
         },
-        set: function (value) {
-            this.message = value || false
+        set: function (data) {
+            this.message = data ? data['message'] : false
         },
         clear: function () {
             this.set()
@@ -23,11 +23,12 @@ function AngForm(field_list, func, $http) {
 
     this.loader = new Loader();
 
-    this.errors = (function (field_list, message) {
+    this.errors = (function (field_list) {
         var instance = {
             __all__: false,
-            show: function (error_dict) {
-                if (error_dict) {
+            show: function (data) {
+                if (data) {
+                    var error_dict = data['errors'];
                     for (var field in error_dict) {
                         this[field] = error_dict[field];
                     }
@@ -36,7 +37,6 @@ function AngForm(field_list, func, $http) {
                 }
             },
             clear: function () {
-                message.clear();
                 for (var i in this) {
                     if (typeof this[i] !== 'function') {
                         this[i] = false;
@@ -48,38 +48,5 @@ function AngForm(field_list, func, $http) {
             instance[field_list[i]] = false;
         }
         return instance;
-    })(field_list, this.success);
-
-    this.submit = function (url) {
-        var errors = this.errors;
-        var success = this.success;
-        var loader = this.loader;
-
-        this.errors.clear();
-        this.loader.show();
-
-        $http.defaults.headers.post['X-CSRFToken'] = Cookie.getCookie('csrftoken');
-
-        $http.post(url, $.param(this.fields))
-            .success(function (data, status, headers, config) {
-                if (data['success'] === true) {
-                    // если func === undefined, значит нам
-                    // нужно показать success сообщение
-                    if (func === undefined) {
-                        success.set(data['message']);
-                    } else {
-                        // иначе передаю данные в callback функцию
-                        func(data);
-                    }
-                } else {
-                    errors.show(data['errors']);
-                }
-            })
-            .error(function (data, status, headers, config) {
-                errors.show();
-            })
-            .finally(function () {
-                loader.hide();
-            });
-    }
+    })(field_list);
 }

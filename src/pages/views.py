@@ -1,56 +1,43 @@
 # coding:utf-8
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import CreateView
+from django.utils.decorators import method_decorator
+from django.http import JsonResponse
 
-from forms import SiteForm
+from utils.decorators import login_required_ajax
+from .models import Pattern, Order, Tariff
 
 
 class IndexView(TemplateView):
-
     template_name = 'pages/index.html'
 
+    def get_context_data(self, **kwargs):
+        kwargs['tariffs'] = Tariff.objects.select_related('benefits')
+        return super(IndexView, self).get_context_data(**kwargs)
 
-class PatternView(FormView):
 
+class OrderView(CreateView):
+    model = Order
+    fields = ['name', 'pattern']
     template_name = 'pages/pattern.html'
-    form_class = SiteForm
+
+    @method_decorator(login_required_ajax)
+    def post(self, request, *args, **kwargs):
+        return super(OrderView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        kwargs['images'] = [
-            {'path': 'f_1.jpg', 'val': 'f_1'},
-            {'path': 'f_2.jpg', 'val': 'f_2'},
-            {'path': 'f_3.jpg', 'val': 'f_3'}
-        ]
-
-        return super(PatternView, self).get_context_data(**kwargs)
-
-    def get_form_kwargs(self):
-        """
-        Override
-        """
-        kwargs = {
-            'initial': self.get_initial(),
-            'prefix': self.get_prefix(),
-        }
-
-        if self.request.method in ('POST', 'PUT'):
-            post_values = self.request.POST.copy()
-            post_values['site_type'] = self.kwargs.get('type', '')
-
-            kwargs.update({
-                'data': post_values,
-                'files': self.request.FILES,
-            })
-        return kwargs
+        kwargs['patterns'] = Pattern.objects.all()
+        return super(OrderView, self).get_context_data(**kwargs)
 
     def get_success_url(self):
-        """
-        Override
-        """
         return reverse('pages:index')
 
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return JsonResponse({'success': True, 'redirect': self.get_success_url()})
 
-
-
-
+    def form_invalid(self, form):
+        return JsonResponse({'success': False, 'errors': form.errors})

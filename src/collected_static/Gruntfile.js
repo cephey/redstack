@@ -9,6 +9,7 @@ module.exports = function (grunt) {
                 src: [
                     'js_src/cookies.js',
                     'js_src/loader.js',
+                    'js_src/tools.js',
                     'js_src/form.js'
                 ],
                 dest: 'js/common.js'
@@ -21,7 +22,7 @@ module.exports = function (grunt) {
                 src: '../pages/static/js/*.js',
                 dest: 'js/pages.js'
             },
-            libs: {
+            libs_js: {
                 src: [
                     'js_src/vendor/angular.min.js',
                     'js_src/vendor/angular-sanitize.min.js',
@@ -32,12 +33,19 @@ module.exports = function (grunt) {
                 ],
                 dest: 'js/libs.js'
             },
+            libs_css: {
+                src: [
+                    'bootstrap-3.1.1/css/bootstrap.min.css',
+                    'ladda/css/ladda-themeless.min.css'
+                ],
+                dest: 'css/libs.css'
+            },
             ie: {
                 src: 'js_src/ie_fix/*.min.js',
                 dest: 'js/ie_fix.js'
             }
         },
-        // Сжимаем
+        // Сжимаем js
         uglify: {
             common: {
                 files: {
@@ -53,6 +61,45 @@ module.exports = function (grunt) {
                 files: {
                     'js/pages.min.js': '<%= concat.pages.dest %>'
                 }
+            }
+        },
+        // SASS -> CSS
+        sass: {
+            dist: {
+                files: {
+                    'css/base.css': 'css_src/base.scss',
+                    'css/index.css': 'css_src/index.scss',
+                    'css/login.css': 'css_src/login.scss',
+                    'css/pattern.css': 'css_src/pattern.scss'
+                }
+            }
+        },
+        // Сжимаем css
+        cssmin: {
+            base: {
+                src: 'css/base.css',
+                dest: 'css/base.min.css'
+            },
+            index: {
+                src: 'css/index.css',
+                dest: 'css/index.min.css'
+            },
+            login: {
+                src: 'css/login.css',
+                dest: 'css/login.min.css'
+            },
+            pattern: {
+                src: 'css/pattern.css',
+                dest: 'css/pattern.min.css'
+            }
+        },
+        copy: {
+            fonts: {
+                expand: true,
+                cwd: 'bootstrap-3.1.1/fonts/',
+                src: '**',
+                dest: 'fonts/',
+                flatten: true
             }
         },
         // Следим за изменениями
@@ -74,8 +121,11 @@ module.exports = function (grunt) {
     // Загрузка плагинов, установленных с помощью npm install
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Задача по умолчанию
-    grunt.registerTask('default', ['concat', 'uglify']);
+    grunt.registerTask('default', ['concat', 'uglify', 'sass', 'cssmin', 'copy']);
 };
