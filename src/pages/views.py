@@ -22,12 +22,16 @@ class OrderView(CreateView):
     fields = ['name', 'pattern']
     template_name = 'pages/pattern.html'
 
+    def get(self, request, *args, **kwargs):
+        self.tariff = kwargs.get('type', None)
+        return super(OrderView, self).get(request, *args, **kwargs)
+
     @method_decorator(login_required_ajax)
     def post(self, request, *args, **kwargs):
         return super(OrderView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        kwargs['patterns'] = Pattern.objects.all()
+        kwargs['patterns'] = Pattern.objects.filter(tariff__slug=self.tariff)
         return super(OrderView, self).get_context_data(**kwargs)
 
     def get_success_url(self):

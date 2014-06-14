@@ -55,5 +55,6 @@ docs/_build/
 # idea
 .idea/*
 
-# npm modules
+# npm
 src/collected_static/node_modules
+src/collected_static/.sass-cache
